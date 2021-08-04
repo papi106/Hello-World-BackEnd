@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TeamInfo
+@{
     ViewData["Title"] = "Home Page";
 }
 @section scripts {
@@ -7,11 +8,14 @@
 <div class="text-center">
     <h1 class="display-4">Our Team</h1>
     <ul id="teamList">
-        <li>Emma</li>
-        <li>Fineas</li>
-        <li>Radu P</li>
-        <li>Tudor</li>
-        <li>Patrick</li>
+        @for (var i = 0; i < Model.TeamMembers.Count; i++)
+        {
+            var member = Model.TeamMembers[i];
+
+            <li class="member">
+                @member
+            </li>
+}
     </ul>
     <input type="text" id="nameField" title="e.g. Patrick" />
     <button id="createButton" title="Create">Add member</button>
