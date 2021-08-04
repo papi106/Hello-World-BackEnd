@@ -1,4 +1,8 @@
-﻿using HelloWorldWeb.Models;
+﻿// <copyright file="HomeController.cs" company="Principal33 Solutions SRL">
+// Copyright (c) Principal33 Solutions SRL. All rights reserved.
+// </copyright>
+
+using HelloWorldWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -25,7 +29,7 @@ namespace HelloWorldWeb.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         public void AddTeamMember(string name)
         {
             teamInfo.TeamMembers.Add(name);

@@ -1,12 +1,16 @@
-﻿using System;
+﻿// <copyright file="Program.cs" company="Principal33 Solutions SRL">
+// Copyright (c) Principal33 Solutions SRL. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace Hello_World
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Cluj-Napoca!");
         }
     }
 }
