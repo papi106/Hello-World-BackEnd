@@ -2,3 +2,15 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+    $(document).ready(function () {
+
+        $("#createButton").click(function () {
+            var newcomerName = $("#nameField").val();
+
+            // Remember string interpolation
+            $("#teamList").append(`<li>${newcomerName}</li>`);
+
+            $("#nameField").val("");
+        })
+    });
