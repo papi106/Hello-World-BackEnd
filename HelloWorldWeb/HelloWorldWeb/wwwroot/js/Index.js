@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+
+    $('#nameField').on('input change', function () {
+        if ($(this).val() != '') {
+            $('#createButton').prop('disabled', false);
+        } else {
+            $('#createButton').prop('disabled', true);
+        }
+    });
+
     // see https://api.jquery.com/click/
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
@@ -21,6 +30,7 @@
             }
         })
 
-        $("#nameField").val("");
+        $("#nameField").val("")
+        $('#createButton').prop('disabled', true);
     })
 });
