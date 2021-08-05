@@ -15,7 +15,7 @@ namespace HelloWorldWeb.Services
         {
             this.teamInfo = new TeamInfo
             {
-                Name = "name",
+                Name = "Team 1",
                 TeamMembers = new List<string>(new string[]
                 {
                     "Emma", "Fineas", "Tudor", "Radu P", "Patrick",
@@ -25,12 +25,17 @@ namespace HelloWorldWeb.Services
 
         public TeamInfo GetTeamInfo()
         {
-            return teamInfo;
+            return this.teamInfo;
         }
 
         public void AddTeamMember(string name)
         {
-            teamInfo.TeamMembers.Add(name);
+            this.teamInfo.TeamMembers.Add(name);
+        }
+
+        public void DeleteTeamMember(int index)
+        {
+            this.teamInfo.TeamMembers.RemoveAt(index);
         }
     }
 }
