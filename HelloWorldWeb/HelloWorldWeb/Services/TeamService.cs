@@ -25,12 +25,12 @@ namespace HelloWorldWeb.Services
 
         public TeamInfo GetTeamInfo()
         {
-            return this.teamInfo;
+            return teamInfo;
         }
 
         public void AddTeamMember(string name)
         {
-            this.teamInfo.TeamMembers.Add(name);
+            teamInfo.TeamMembers.Add(name);
         }
     }
 }
