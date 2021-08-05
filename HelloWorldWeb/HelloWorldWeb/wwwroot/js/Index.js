@@ -28,8 +28,8 @@
                 $("#teamList").append(
                     `<li class="member">
                     <span class="name">${newcomerName}</span>
-                    <span class="delete fa fa-remove"></span>
                     <span class="edit fa fa-pencil"></span>
+                    <span class="delete fa fa-remove"></span>
                     </li>`
                 ),
                     $("#nameField").val("")
