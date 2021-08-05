@@ -10,7 +10,7 @@
             url: "/Home/AddTeamMember",
             data: { "name": newcomerName },
             success: function (result) {
-                $("#team-list").append(`<li>${newcomerName}</li>`),
+                $("#teamList").append(`<li>${newcomerName}</li>`),
                     $("#nameField").val("")
             }
         })
