@@ -8,9 +8,12 @@ namespace HelloWorldWeb.Services
 {
     public interface ITeamService
     {
-        void AddTeamMember(string name);
-        void DeleteTeamMember(int index);
+        int AddTeamMember(string name);
 
         TeamInfo GetTeamInfo();
+
+        void DeleteTeamMember(int index);
+
+        TeamMember GetTeamMemberById(int id);
     }
 }

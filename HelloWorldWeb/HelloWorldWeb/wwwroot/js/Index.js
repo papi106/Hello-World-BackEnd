@@ -1,8 +1,13 @@
-﻿// This JS file now uses jQuery. Pls see here: https://jquery.com/
-$(document).ready(function () {
+﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
-    setDelete();
 
+    //clearButton
+    $("#clearButton").click(function () {
+        $("#nameField").val("");
+        $('#createButton').prop('disabled', true);
+    });
+
+    //disable createButton
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
             $('#createButton').prop('disabled', false);
@@ -11,56 +16,51 @@ $(document).ready(function () {
         }
     });
 
-    $("#clearButton").click(function () {
-        $("#nameField").val("");
-        $('#createButton').prop('disabled', true);
-    });
 
+    //create
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
-        $.ajax({
-            method: "GET",
-            url: "/Home/GetCount",
 
-            success: (resultGet) => {
-                $.ajax({
-                    method: "POST",
-                    url: "/Home/AddTeamMember",
-                    data: {
-                        "teamMember": newcomerName
-                    },
-                    success: (resultPost) => {
-                        $("#teamList").append(
-                            `<li class="member" id="${resultGet}">
-                        <span class="memberName">${newcomerName}</span>
+        $.ajax({
+            method: "POST",
+            url: "/Home/AddTeamMember",
+            data: { "name": newcomerName },
+            success: function (result) {
+                var ind = result;
+                //console.log(result);
+                $("#teamList").append(
+                    `<li class="member">
+                        <span class="name">${newcomerName}</span>
                         <span class="edit fa fa-pencil"></span>
-                        <span class="delete fa fa-remove" id="deleteMember"></span>
-                        
-                             </li>`);
-                        $("#nameField").val("");
-                        $('#createButton').prop('disabled', true);
-                        setDelete();
-                    }
-                })
-            }
-        });
-    })
-
-});
-function setDelete() {
-    $(".delete").off("click").click(function () {
-        var index = $("#deleteMember").parent().attr("id");
-
-        $.ajax({
-            method: "DELETE",
-            url: "/Home/DeleteTeamMember",
-            data: {
-                "index": index
+                        <span class="delete fa fa-remove" onClick="deleteMember(${ind})"></span>
+                    </li>`
+                );
+                $("#nameField").val("");
+                $('#createButton').prop('disabled', true);
             },
-            success: (result) => {
-                $(this).parent().remove();
+            error: function (err) {
+                console.log(err);
             }
         })
-    }
-    );
-}
+
+
+    });
+
+
+
+});
+
+function deleteMember(index) {
+
+    $.ajax({
+        url: "/Home/DeleteTeamMember",
+        method: "DELETE",
+        data: {
+            "index": index
+        },
+        success: function (result) {
+            console.log("deleete:" + index);
+            location.reload();
+        }
+    })
+};
