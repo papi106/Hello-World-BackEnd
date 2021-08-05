@@ -9,6 +9,12 @@
     });
 
     // see https://api.jquery.com/click/
+
+    $("#clearButton").click(function () {
+        $("#nameField").val("")
+        $('#createButton').prop('disabled', true);
+    });
+
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
 
