@@ -1,12 +1,6 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
 
-    //clearButton
-    $("#clearButton").click(function () {
-        $("#nameField").val("");
-        $('#createButton').prop('disabled', true);
-    });
-
     //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
@@ -14,6 +8,12 @@
         } else {
             $('#createButton').prop('disabled', true);
         }
+    });
+
+    //clearButton
+    $("#clearButton").click(function () {
+        $("#nameField").val("");
+        $('#createButton').prop('disabled', true);
     });
 
 
@@ -46,9 +46,22 @@
 
     });
 
+    //open the Modal View
+    $("#teamList").on("click", ".edit", function () {
+        var targetMemberTag = $(this).closest('li');
+
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+
+        $('#editTeamMember').attr("data-member-id", id);
+        $('#memberName').val(currentName);
+        $('#editTeamMember').modal('show');
+
+    })
 
     //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
+        var targetMemberTag = $(this).closest('li');
 
         var id = $("#editTeamMember").attr('data-member-id');
         var newName = $("#memberName").val();
@@ -71,19 +84,6 @@
     //cancel the edit member
     $("#editTeamMember").on("click", "#cancel", function () {
         console.log('cancel changes');
-    })
-
-    //open the Modal View
-    $("#teamList").on("click", ".edit", function () {
-
-        var targetMemberTag = $(this).closest('li');
-        var id = targetMemberTag.attr('data-member-id');
-        var currentName = targetMemberTag.find(".memberName").text();
-
-        $('#editTeamMember').attr("data-member-id", id);
-        $('#memberName').val(currentName);
-        $('#editTeamMember').modal('show');
-
     })
 
 });
