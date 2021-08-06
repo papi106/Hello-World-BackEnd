@@ -17,14 +17,15 @@ namespace HelloWorldWeb.Services
         {
             this.teamInfo = new TeamInfo
             {
-                Name = "~Team 1~",
+                Name = "Team 1",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.teamInfo.TeamMembers.Add(new TeamMember("Sorina"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Ema"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Patrick"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Tudor"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Radu"));
+
+            this.AddTeamMember("Sorina");
+            this.AddTeamMember("Ema");
+            this.AddTeamMember("Patrick");
+            this.AddTeamMember("Tudor");
+            this.AddTeamMember("Radu");
         }
 
         public TeamInfo GetTeamInfo()
