@@ -27,11 +27,12 @@
             data: { "name": newcomerName },
             success: function (result) {
                 var ind = result;
+
                 //console.log(result);
                 $("#teamList").append(
                     `<li class="member">
                         <span class="name">${newcomerName}</span>
-                        <span class="edit fa fa-pencil"></span>
+                        <span class="edit fa fa-pencil"></span >
                         <span class="delete fa fa-remove" onClick="deleteMember(${ind})"></span>
                     </li>`
                 );
@@ -46,20 +47,53 @@
 
     });
 
+    $("#editTeamMember").on("click", "#submit", function () {
 
+        var id = $("#editTeamMember").attr('data-member-id');
+        var newName = $("#memberName").val();
+
+        console.log('submit changes to server');
+        $.ajax({
+            url: "/Home/EditTeamMember",
+            method: "POST",
+            data: {
+                "id": id,
+                "name": newName
+            },
+            success: function (result) {
+                console.log(`edit: ${id}`);
+                location.reload();
+            }
+        })
+    })
+
+    $("#editTeamMember").on("click", "#cancel", function () {
+        console.log('cancel changes');
+    })
+
+
+    $("#teamList").on("click", ".edit", function () {
+        var targetMemberTag = $(this).closest('li');
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+        $('#editTeamMember').attr("data-member-id", id);
+        $('#memberName').val(currentName);
+        $('#editTeamMember').modal('show');
+
+    })
 
 });
 
-function deleteMember(index) {
+function deleteMember(id) {
 
     $.ajax({
         url: "/Home/DeleteTeamMember",
         method: "DELETE",
         data: {
-            "index": index
+            "id": id
         },
         success: function (result) {
-            console.log("deleete:" + index);
+            console.log("Deleted member:" + id);
             location.reload();
         }
     })

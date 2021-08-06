@@ -1,4 +1,5 @@
 ﻿@model TeamInfo
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -11,21 +12,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 }
 
+@section ModalWindow {
+    <!-- Modal -->
+    <div class="modal fade" id="editTeamMember" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit TeamMember</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Name
+                        <input id="memberName" title="Name" type="text">
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="submit" type="button" class="btn" data-dismiss="modal">Submit</button>
+                    <button id="cancel" type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <div class="text-center">
     <h1 class="display-4">Team 1 BackEnd</h1>
     <h2 class="display-3">Team members</h2>
 
     <ul id="teamList">
+
         @for (var i = 0; i < Model.TeamMembers.Count; i++)
         {
             var member = Model.TeamMembers[i];
 
-            <li class="member">
+            <li class="member" data-member-id="@member.Id">
                 <span class="memberName">@member.Name</span>
                 <span class="edit fa fa-pencil"></span>
                 <span class="delete fa fa-remove" onClick="deleteMember(@member.Id)"></span>
             </li>
         }
+
     </ul>
     <input type="text" id="nameField" title="e.g. Patrick" />
     <button id="createButton" class="btn btn-dark" disabled="disabled">Add member</button>

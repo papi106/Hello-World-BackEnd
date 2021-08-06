@@ -13,8 +13,6 @@ namespace HelloWorldWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-
-        // private readonly TeamInfo teamInfo;
         private readonly ITeamService teamService;
 
         public HomeController(ILogger<HomeController> logger, ITeamService teamService)
@@ -36,9 +34,15 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpDelete]
-        public void DeleteTeamMember(int index)
+        public void DeleteTeamMember(int id)
         {
-            this.teamService.DeleteTeamMember(index);
+            this.teamService.DeleteTeamMember(id);
+        }
+
+        [HttpPost]
+        public void EditTeamMember(int id, string name)
+        {
+            this.teamService.EditTeamMember(id, name);
         }
 
         public IActionResult Index()

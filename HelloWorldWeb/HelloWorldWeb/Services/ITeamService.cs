@@ -12,7 +12,9 @@ namespace HelloWorldWeb.Services
 
         TeamInfo GetTeamInfo();
 
-        void DeleteTeamMember(int index);
+        void DeleteTeamMember(int id);
+
+        void EditTeamMember(int id, string name);
 
         TeamMember GetTeamMemberById(int id);
     }

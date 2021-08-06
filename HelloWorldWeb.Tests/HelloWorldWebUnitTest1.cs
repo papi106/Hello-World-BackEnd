@@ -2,7 +2,7 @@ using HelloWorldWeb.Services;
 using System;
 using Xunit;
 
-namespace HelloWorldWeb.Tests
+namespace HelloWorldWeb.Test
 {
     public class TeamServiceTest
     {
@@ -24,9 +24,23 @@ namespace HelloWorldWeb.Tests
             //Assume
             ITeamService teamService = new TeamService();
             //Act
-            teamService.DeleteTeamMember(2);
+            teamService.DeleteTeamMember(3);
             //Assert
             Assert.Equal(4, teamService.GetTeamInfo().TeamMembers.Count);
+
+        }
+
+
+        [Fact]
+        public void EditTeamMemberInTheTeam()
+        {
+            //Assume
+            ITeamService teamService = new TeamService();
+            //Act
+            teamService.EditTeamMember(3, "NewName");
+            //Assert
+            Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
+
 
         }
 
