@@ -7,18 +7,7 @@
         $('#createButton').prop('disabled', true);
     });
 
-    $("#teamList").on("click", ".edit", function () {
-
-        var targetMemberTag = $(this).closest('li');
-        var id = targetMemberTag.attr('data-member-id');
-        var currentName = targetMemberTag.find(".memberName").text();
-        $('#editClassmate').attr("data-member-id", id);
-        $('#classmateName').val(currentName);
-        $('#editClassmate').modal("show");
-
-    })
-
-    //disable createButton
+    //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
             $('#createButton').prop('disabled', false);
@@ -28,7 +17,7 @@
     });
 
 
-    //create
+    //add team member button
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
 
@@ -39,7 +28,6 @@
             success: function (result) {
                 var ind = result;
 
-                //console.log(result);
                 $("#teamList").append(
                     `<li class="member">
                         <span class="name">${newcomerName}</span>
@@ -57,35 +45,15 @@
 
 
     });
-    $("#editClassmate").on("click", "#submit", function () {
-        console.log('submit changes to server');
-        var id = 5;
-        var name = "6";
-        $.ajax({
-            url: "/Home/RenameMember",
-            method: "POST",
-            data: {
-                "id": id,
-                "name": name
-            },
-            success: function (result) {
-                console.log(`succesful renamed ${id}`);
-            }
-        })
-    })
 
 
-
-    $("#editClassmate").on("click", "#cancel", function () {
-        console.log('cancel changes');
-    })
-
+    //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
 
         var id = $("#editTeamMember").attr('data-member-id');
         var newName = $("#memberName").val();
-
         console.log('submit changes to server');
+
         $.ajax({
             url: "/Home/EditTeamMember",
             method: "POST",
@@ -100,15 +68,18 @@
         })
     })
 
+    //cancel the edit member
     $("#editTeamMember").on("click", "#cancel", function () {
         console.log('cancel changes');
     })
 
-
+    //open the Modal View
     $("#teamList").on("click", ".edit", function () {
+
         var targetMemberTag = $(this).closest('li');
         var id = targetMemberTag.attr('data-member-id');
         var currentName = targetMemberTag.find(".memberName").text();
+
         $('#editTeamMember').attr("data-member-id", id);
         $('#memberName').val(currentName);
         $('#editTeamMember').modal('show');
@@ -117,6 +88,7 @@
 
 });
 
+//delete button member
 function deleteMember(id) {
 
     $.ajax({
@@ -126,9 +98,8 @@ function deleteMember(id) {
             "id": id
         },
         success: function (result) {
-            console.log("Deleted member:" + id);
+            console.log("deleete:" + id);
             location.reload();
         }
     })
 };
-

@@ -14,7 +14,7 @@ namespace HelloWorldWeb.Test
             //Act
             teamService.AddTeamMember("Patrick");
             //Assert
-            Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
+            Assert.Equal(7, teamService.GetTeamInfo().TeamMembers.Count);
 
         }
 
@@ -26,34 +26,22 @@ namespace HelloWorldWeb.Test
             //Act
             teamService.DeleteTeamMember(3);
             //Assert
-            Assert.Equal(4, teamService.GetTeamInfo().TeamMembers.Count);
+            Assert.Equal(5, teamService.GetTeamInfo().TeamMembers.Count);
 
         }
 
-<<<<<<< HEAD:HelloWorldWeb.Tests/HelloWorldWebUnitTest1.cs
 
         [Fact]
         public void EditTeamMemberInTheTeam()
-=======
-        [Fact]
-        public void EditTeamMemberFromTheTeam()
->>>>>>> 8636a83df7953b80bda3405efad7c75d8db2b662:HelloWorldWeb.Tests/TeamServiceTest1.cs
         {
             //Assume
             ITeamService teamService = new TeamService();
             //Act
-<<<<<<< HEAD:HelloWorldWeb.Tests/HelloWorldWebUnitTest1.cs
             teamService.EditTeamMember(3, "NewName");
             //Assert
             Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
 
 
-=======
-            teamService.EditTeamMember(3,"NewName");
-            //Assert
-            Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
-
->>>>>>> 8636a83df7953b80bda3405efad7c75d8db2b662:HelloWorldWeb.Tests/TeamServiceTest1.cs
         }
 
     }
