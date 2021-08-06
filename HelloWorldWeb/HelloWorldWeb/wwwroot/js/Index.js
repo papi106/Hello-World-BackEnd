@@ -61,7 +61,6 @@
 
     //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
-        var targetMemberTag = $(this).closest('li');
 
         var id = $("#editTeamMember").attr('data-member-id');
         var newName = $("#memberName").val();
