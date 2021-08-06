@@ -30,5 +30,17 @@ namespace HelloWorldWeb.Tests
 
         }
 
+        [Fact]
+        public void EditTeamMemberFromTheTeam()
+        {
+            //Assume
+            ITeamService teamService = new TeamService();
+            //Act
+            teamService.EditTeamMember(3,"NewName");
+            //Assert
+            Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
+
+        }
+
     }
 }

@@ -56,6 +56,28 @@
 
 
     });
+    $("#editClassmate").on("click", "#submit", function () {
+        console.log('submit changes to server');
+        var id = 5;
+        var name = "6";
+        $.ajax({
+            url: "/Home/RenameMember",
+            method: "POST",
+            data: {
+                "id": id,
+                "name": name
+            },
+            success: function (result) {
+                console.log(`succesful renamed ${id}`);
+            }
+        })
+    })
+
+
+
+    $("#editClassmate").on("click", "#cancel", function () {
+        console.log('cancel changes');
+    })
 
 
 
