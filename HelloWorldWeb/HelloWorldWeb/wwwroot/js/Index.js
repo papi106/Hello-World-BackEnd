@@ -7,6 +7,17 @@
         $('#createButton').prop('disabled', true);
     });
 
+    $("#teamList").on("click", ".edit", function () {
+
+        var targetMemberTag = $(this).closest('li');
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+        $('#editClassmate').attr("data-member-id", id);
+        $('#classmateName').val(currentName);
+        $('#editClassmate').modal("show");
+
+    })
+
     //disable createButton
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
@@ -64,3 +75,4 @@ function deleteMember(index) {
         }
     })
 };
+
