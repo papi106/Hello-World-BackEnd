@@ -17,9 +17,13 @@ namespace HelloWorldWeb.Services
         {
             this.teamInfo = new TeamInfo
             {
-                Name = "~Team 1~",
+                Name = "Team 1",
                 TeamMembers = new List<TeamMember>(),
             };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8636a83df7953b80bda3405efad7c75d8db2b662
             this.AddTeamMember("Sorina");
             this.AddTeamMember("Ema");
             this.AddTeamMember("Patrick");
@@ -58,6 +62,11 @@ namespace HelloWorldWeb.Services
         public void DeleteTeamMember(int id)
         {
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
+        }
+
+        public void EditTeamMember(int id, string name)
+        {
+            this.GetTeamMemberById(id).Name = name;
         }
 
         public void EditTeamMember(int id, string name)

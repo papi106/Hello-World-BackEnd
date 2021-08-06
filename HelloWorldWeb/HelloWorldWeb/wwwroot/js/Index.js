@@ -7,6 +7,17 @@
         $('#createButton').prop('disabled', true);
     });
 
+    $("#teamList").on("click", ".edit", function () {
+
+        var targetMemberTag = $(this).closest('li');
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+        $('#editClassmate').attr("data-member-id", id);
+        $('#classmateName').val(currentName);
+        $('#editClassmate').modal("show");
+
+    })
+
     //disable createButton
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
@@ -46,6 +57,28 @@
 
 
     });
+    $("#editClassmate").on("click", "#submit", function () {
+        console.log('submit changes to server');
+        var id = 5;
+        var name = "6";
+        $.ajax({
+            url: "/Home/RenameMember",
+            method: "POST",
+            data: {
+                "id": id,
+                "name": name
+            },
+            success: function (result) {
+                console.log(`succesful renamed ${id}`);
+            }
+        })
+    })
+
+
+
+    $("#editClassmate").on("click", "#cancel", function () {
+        console.log('cancel changes');
+    })
 
     $("#editTeamMember").on("click", "#submit", function () {
 
@@ -98,3 +131,4 @@ function deleteMember(id) {
         }
     })
 };
+
