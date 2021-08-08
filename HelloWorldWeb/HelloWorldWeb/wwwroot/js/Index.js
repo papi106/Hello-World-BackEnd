@@ -29,21 +29,21 @@
                 var ind = result;
 
                 $("#teamList").append(
-                    `<li class="member">
+                    `<li class="member" data-member-id="${ind}">
                         <span class="name">${newcomerName}</span>
-                        <span class="edit fa fa-pencil"></span >
-                        <span class="delete fa fa-remove" onClick="deleteMember(${ind})"></span>
+                        <span class="edit fa fa-pencil"></span>
+                        <span class="delete fa fa-remove" onClick="deleteMember${ind}"></span></>
                     </li>`
                 );
+                deleteMember();
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
+                
             },
             error: function (err) {
                 console.log(err);
             }
         })
-
-
     });
 
     //open the Modal View
@@ -74,7 +74,7 @@
                 "name": newName
             },
             success: function (result) {
-                console.log(`edit: ${id}`);
+                console.log(`edited the member: ${id}`);
                 location.reload();
             }
         })
@@ -97,7 +97,7 @@ function deleteMember(id) {
             "id": id
         },
         success: function (result) {
-            console.log("deleete:" + id);
+            console.log("deleted member:" + id);
             location.reload();
         }
     })

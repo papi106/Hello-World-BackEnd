@@ -35,16 +35,6 @@ namespace HelloWorldWeb.Services
 
         public TeamMember GetTeamMemberById(int id)
         {
-            // foreach (TeamMember member in this.teamInfo.TeamMembers)
-            // {
-            //    if (member.Id == id)
-            //    {
-            //        return member;
-            //    }
-
-            // }
-
-            // return null;
             Console.WriteLine(id);
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
