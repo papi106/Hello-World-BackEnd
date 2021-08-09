@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
 
+    deleteMember();
+
     //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
@@ -30,12 +32,12 @@
 
                 $("#teamList").append(
                     `<li class="member" data-member-id="${ind}">
-                        <span class="name">${newcomerName}</span>
-                        <span class="edit fa fa-pencil"></span>
-                        <span class="delete fa fa-remove" onClick="deleteMember${ind}"></span></>
+                        <span class="memberName">${newcomerName}</span>
+                        <span class="edit fa fa-pencil" onClick="editMember()"></span>
+                        <span class="deleteA fa fa-remove" ></span></>
                     </li>`
                 );
-                deleteMember();
+                
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
                 
@@ -46,18 +48,7 @@
         })
     });
 
-    //open the Modal View
-    $("#teamList").on("click", ".edit", function () {
-        var targetMemberTag = $(this).closest('li');
 
-        var id = targetMemberTag.attr('data-member-id');
-        var currentName = targetMemberTag.find(".memberName").text();
-
-        $('#editTeamMember').attr("data-member-id", id);
-        $('#memberName').val(currentName);
-        $('#editTeamMember').modal('show');
-
-    })
 
     //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
@@ -88,17 +79,34 @@
 });
 
 //delete button member
-function deleteMember(id) {
-
-    $.ajax({
-        url: "/Home/DeleteTeamMember",
-        method: "DELETE",
-        data: {
-            "id": id
-        },
-        success: function (result) {
-            console.log("deleted member:" + id);
-            location.reload();
-        }
+function deleteMember() {
+    $(".deleteA").off("click").click(function () {
+        var id = $(this).parent().attr("data-member-id");
+        $.ajax({
+            url: "/Home/DeleteTeamMember",
+            method: "DELETE",
+            data: {
+                "id": id
+            },
+            success: function (result) {
+                console.log("deleted member:" + id);
+                $(this).parent().remove();
+                location.reload();
+            }
+        })
     })
-};
+}
+function editMember() {
+    //open the Modal View
+    $("#teamList").off("click").on("click", ".edit", function () {
+        var targetMemberTag = $(this).closest('li');
+
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+
+        $('#editTeamMember').attr("data-member-id", id);
+        $('#memberName').val(currentName);
+        $('#editTeamMember').modal('show');
+
+    })
+}
