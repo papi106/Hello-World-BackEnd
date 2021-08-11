@@ -40,8 +40,6 @@ namespace HelloWorldWeb.Test
             teamService.EditTeamMember(3, "NewName");
             //Assert
             Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
-
-
         }
 
     }

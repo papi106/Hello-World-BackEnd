@@ -53,7 +53,8 @@ namespace HelloWorldWeb.Services
 
         public void EditTeamMember(int id, string name)
         {
-            this.GetTeamMemberById(id).Name = name;
+            TeamMember member = this.teamInfo.TeamMembers.Single(element => element.Id == id);
+            member.Name = name;
         }
     }
 }
