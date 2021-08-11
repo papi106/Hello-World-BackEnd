@@ -2,6 +2,8 @@
 // Copyright (c) Principal33 Solutions SRL. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace HelloWorldWeb.Models
 {
     public class TeamMember
@@ -18,5 +20,14 @@ namespace HelloWorldWeb.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+        public DateTime BirthDate { get; set; }
+
+        public int GetAge()
+        {
+            var age = DateTime.Now.Subtract(BirthDate).Days;
+            age = age / 365;
+
+            return age;
+        }
     }
 }
