@@ -26,12 +26,12 @@ namespace HelloWorldWeb.Test
             //Act
             teamService.DeleteTeamMember(3);
             //Assert
-            Assert.Equal(5, teamService.GetTeamInfo().TeamMembers.Count);
+            Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
 
         }
 
 
-/*        [Fact]
+        [Fact]
         public void EditTeamMemberInTheTeam()
         {
             //Assume
@@ -40,7 +40,7 @@ namespace HelloWorldWeb.Test
             teamService.EditTeamMember(3, "NewName");
             //Assert
             Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
-        }*/
+        }
 
     }
 }
