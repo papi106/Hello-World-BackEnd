@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HelloWorldWeb.Models;
+using HelloWorldWeb.Services;
 
 namespace HelloWorldWeb.Services
 {
     public class TeamService : ITeamService
     {
         private readonly TeamInfo teamInfo;
-
+        private ITimeService timeService;
         public TeamService()
         {
             this.teamInfo = new TeamInfo
@@ -20,12 +21,12 @@ namespace HelloWorldWeb.Services
                 Name = "Team 1",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.AddTeamMember("Ema");
-            this.AddTeamMember("Sorina");
-            this.AddTeamMember("Fineas");
-            this.AddTeamMember("Radu");
-            this.AddTeamMember("Tudor");
-            this.AddTeamMember("Patrick");
+            this.AddTeamMember("Ema", (TimeService)timeService);
+            this.AddTeamMember("Sorina", (TimeService)timeService);
+            this.AddTeamMember("Fineas", (TimeService)timeService);
+            this.AddTeamMember("Radu", (TimeService)timeService);
+            this.AddTeamMember("Tudor", (TimeService)timeService);
+            this.AddTeamMember("Patrick", (TimeService)timeService);
         }
 
         public TeamInfo GetTeamInfo()
@@ -39,9 +40,9 @@ namespace HelloWorldWeb.Services
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
 
-        public int AddTeamMember(string name)
+        public int AddTeamMember(string name, ITimeService timeService)
         {
-            TeamMember member = new (name);
+            TeamMember member = new TeamMember(name, timeService);
             this.teamInfo.TeamMembers.Add(member);
             return member.Id;
         }

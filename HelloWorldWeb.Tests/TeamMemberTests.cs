@@ -11,11 +11,19 @@ namespace HelloWorldWeb.Tests
 {
     public class TeamMemberTests
     {
+        private ITimeService timeService;
+
+        public TeamMemberTests()
+        {
+            timeService = new FakeTimeService();
+        }
+
         [Fact]
         public void GettingAge()
         {
             //Assume
-            var newTeamMember = new TeamMember("Sergiu");
+
+            var newTeamMember = new TeamMember("Patrick", timeService);
             newTeamMember.BirthDate = new DateTime(1997, 07, 27);
 
             //Act
@@ -24,6 +32,15 @@ namespace HelloWorldWeb.Tests
             //Assert
             Assert.Equal(24, age);
 
+        }
+
+    }
+
+    internal class FakeTimeService : ITimeService
+    {
+        public DateTime GetNow()
+        {
+            return new DateTime(2021, 08, 11);
         }
     }
 }

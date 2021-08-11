@@ -16,11 +16,13 @@ namespace HelloWorldWeb.Controllers
         private readonly ILogger<HomeController> logger;
 #pragma warning restore IDE0052 // Remove unread private members
         private readonly ITeamService teamService;
+        private readonly ITimeService timeService;
 
         public HomeController(ILogger<HomeController> logger, ITeamService teamService)
         {
             this.logger = logger;
             this.teamService = teamService;
+            this.timeService = timeService;
         }
 
         [HttpGet]
@@ -32,7 +34,7 @@ namespace HelloWorldWeb.Controllers
         [HttpPost]
         public int AddTeamMember(string name)
         {
-            return this.teamService.AddTeamMember(name);
+            return this.teamService.AddTeamMember(name, timeService);
         }
 
         [HttpDelete]
