@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
 
 namespace HelloWorldWeb.Tests
 {
@@ -13,15 +14,21 @@ namespace HelloWorldWeb.Tests
     {
         private ITimeService timeService;
 
-        public TeamMemberTests()
+        private Mock<ITimeService> timeMock;
+
+        private void InitializeTimeServiceMock()
         {
-            timeService = new FakeTimeService();
+            timeMock = new Mock<ITimeService>();
+            timeMock.Setup(_ => _.GetNow()).Returns(new DateTime(2021, 8, 11));
+
         }
 
         [Fact]
         public void GettingAge()
         {
             //Assume
+            InitializeTimeServiceMock();
+            var timeService = timeMock.Object;
 
             var newTeamMember = new TeamMember("Patrick", timeService);
             newTeamMember.BirthDate = new DateTime(1997, 07, 27);
@@ -30,17 +37,18 @@ namespace HelloWorldWeb.Tests
             int age = newTeamMember.GetAge();
 
             //Assert
+            timeMock.Verify(_ => _.GetNow(), Times.AtMostOnce());
             Assert.Equal(24, age);
 
         }
 
     }
 
-    internal class FakeTimeService : ITimeService
+/*    internal class FakeTimeService : ITimeService
     {
         public DateTime GetNow()
         {
             return new DateTime(2021, 08, 11);
         }
-    }
+    }*/
 }
