@@ -43,11 +43,13 @@ namespace HelloWorldWeb.Controllers
             {
                 //TODO: Convert item to DailyWeatherRecord
 
-                //DailyWeatherRecord - DSDAs - ALWAYS PascalCase
+                //DailyWeatherRecord - CLASS - ALWAYS PascalCase
                 DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 8, 12), 22.0f, WeatherType.Mild);
 
                 //dailyWeatherRecord - OBJECT - ALWAYS camelCase
                 result.Add(dailyWeatherRecord); 
+
+                //CLASS can have many OBJECTS, so one OBJECT is in within a CLASS 
             }
             return result;
 
