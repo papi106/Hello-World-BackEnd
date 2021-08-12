@@ -1,5 +1,6 @@
 ﻿using HelloWorldWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace HelloWorldWeb.Controllers
     {
         private readonly string latitude = "46.7700";
         private readonly string longitude = "23.5800";
-        private readonly string apiKey = "87c518ece5346b1e8f0e944352222508";
+        private readonly string apiKey = "8446f067eeb54c9d8d875421211208"; //my API key
 
         // GET: api/<WeatherController>
         [HttpGet]
@@ -34,10 +35,22 @@ namespace HelloWorldWeb.Controllers
 
         public IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherRecordList(string content)
         {
-            return new DailyWeatherRecord[] {
-                    new DailyWeatherRecord(new DateTime(2021,8,12),22.0f,WeatherType.Mild),
-                    new DailyWeatherRecord(new DateTime(2021,8,13),27.0f,WeatherType.Mild),
-            };
+            var json = JObject.Parse(content);
+
+            List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
+            var jsonArray = json["daily"];
+            foreach (var item in jsonArray)
+            {
+                //TODO: Convert item to DailyWeatherRecord
+
+                //DailyWeatherRecord - DSDAs - ALWAYS PascalCase
+                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 8, 12), 22.0f, WeatherType.Mild);
+
+                //dailyWeatherRecord - OBJECT - ALWAYS camelCase
+                result.Add(dailyWeatherRecord); 
+            }
+            return result;
+
         }
 
         // GET api/<WeatherController>/5
