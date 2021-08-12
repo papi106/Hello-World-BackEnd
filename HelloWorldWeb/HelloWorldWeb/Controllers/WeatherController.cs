@@ -28,11 +28,11 @@ namespace HelloWorldWeb.Controllers
             client.Timeout = -1;            //no timeout at all
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
-            return ConvertResponseToWeatherForecastList(response.Content);            
+            return ConvertResponseToWeatherRecordList(response.Content);            
             
         }
 
-        private IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherForecastList(string content)
+        public IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherRecordList(string content)
         {
             return new DailyWeatherRecord[] {
                     new DailyWeatherRecord(new DateTime(2021,8,12),22.0f,WeatherType.Mild),
