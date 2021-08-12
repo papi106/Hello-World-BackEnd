@@ -38,19 +38,26 @@ namespace HelloWorldWeb.Controllers
             var json = JObject.Parse(content);
 
             List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
-            var jsonArray = json["daily"];
+
+            var jsonArray = json["daily"].Take(7);
+
             foreach (var item in jsonArray)
             {
                 //TODO: Convert item to DailyWeatherRecord
 
+                //CLASS can have many OBJECTS, so one OBJECT is in within a CLASS
+
                 //DailyWeatherRecord - CLASS - ALWAYS PascalCase
                 DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 8, 12), 22.0f, WeatherType.Mild);
+                long unixDateTime = item.Value<long>("dt");
+                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date; //Conversion to this date
 
                 //dailyWeatherRecord - OBJECT - ALWAYS camelCase
                 result.Add(dailyWeatherRecord); 
 
-                //CLASS can have many OBJECTS, so one OBJECT is in within a CLASS 
+                 
             }
+
             return result;
 
         }
