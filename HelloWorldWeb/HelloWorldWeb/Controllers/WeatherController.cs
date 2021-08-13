@@ -43,30 +43,28 @@ namespace HelloWorldWeb.Controllers
 
             foreach (var item in jsonArray)
             {
-                //TODO: Convert items to DailyWeatherRecord
-
-                //CLASS can have many OBJECTS, so one OBJECT is in within a CLASS
-
-                //DailyWeatherRecord - CLASS - ALWAYS PascalCase
-                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 8, 12), 22.0f, WeatherType.Mild);
-
-                long unixDateTime = item.Value<long>("dt");
-                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;    //Conversion time to this date
-                
-                //dailyWeatherRecord - OBJECT - ALWAYS camelCase
+               
+                DailyWeatherRecord dailyWeatherRecord = CreateDailyWeatherRecordFromJToken(item);
                 result.Add(dailyWeatherRecord);
-
-                float temperature = item.SelectToken("temp").Value<float>("day");
-                dailyWeatherRecord.Temperature = temperature;   //Selection and conversion temperature float
-
-                string weather = item.SelectToken("weather")[0].Value<string>("description");
-                dailyWeatherRecord.Type = Convert(weather);     //Selection and conversion weather type by using SWITCH method
-
 
             }
 
             return result;
 
+        }
+
+        private DailyWeatherRecord CreateDailyWeatherRecordFromJToken(JToken item)
+        {
+            long unixDateTime = item.Value<long>("dt");
+            var day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;    
+
+            float temperature = item.SelectToken("temp").Value<float>("day");
+
+            string weather = item.SelectToken("weather")[0].Value<string>("description");
+            var type = Convert(weather);     
+
+            DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(day, temperature, type);
+            return dailyWeatherRecord;
         }
 
         //Converting weather type

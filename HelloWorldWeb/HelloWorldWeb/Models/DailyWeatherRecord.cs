@@ -7,7 +7,6 @@ namespace HelloWorldWeb.Models
 {
     public class DailyWeatherRecord
     {
-
         public float Temperature { get; set; }
 
         public WeatherType Type { get; set; }
@@ -20,6 +19,12 @@ namespace HelloWorldWeb.Models
             this.Day = day;
             this.Temperature = temperature;
             this.Type = type;
+        }
+
+
+        public static float KelvinToCelsius(float temp)
+        {
+            return (float)(temp - 273.15);
         }
     }
 
