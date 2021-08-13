@@ -16,13 +16,21 @@ namespace HelloWorldWeb.Controllers
     {
         private readonly string latitude = "46.7700";
         private readonly string longitude = "23.5800";
-        private readonly string apiKey = "8446f067eeb54c9d8d875421211208"; //my API key
+        private readonly string apiKey = "8446f067eeb54c9d8d875421211208";
+
+        // Create a constructor (I = interface)
+        public WeatherController(IWeatherControllerSettings conf)
+        {
+
+            longitude = conf.Longitude;
+            latitude = conf.Latitude;
+            apiKey = conf.ApiKey;
+        }
 
         // GET: api/<WeatherController>
         [HttpGet]
         public IEnumerable<DailyWeatherRecord> Get()
         {
-            //lat 46.7700 lon 23.5800
             //var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat=46.7700&lon=23.5800&exclude=hourly,minutely&appid=87c518ece5346b1e8f0e944352222508");
 
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=hourly,minutely&appid={apiKey}");
@@ -37,6 +45,7 @@ namespace HelloWorldWeb.Controllers
         {
             var json = JObject.Parse(content);            
             var jsonArray = json["daily"].Take(7);
+
             return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
 
             

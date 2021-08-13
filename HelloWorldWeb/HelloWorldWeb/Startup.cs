@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HelloWorldWeb.Data;
+using HelloWorldWeb.Controllers;
 
 namespace HelloWorldWeb
 {
@@ -29,11 +30,14 @@ namespace HelloWorldWeb
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
             services.AddSingleton<ITeamService>(new TeamService());
             services.AddSingleton<ITimeService>(new TimeService());
         }
