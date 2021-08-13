@@ -35,9 +35,7 @@ namespace HelloWorldWeb.Controllers
 
         public IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherRecordList(string content)
         {
-            var json = JObject.Parse(content);
-
-            
+            var json = JObject.Parse(content);            
             var jsonArray = json["daily"].Take(7);
             return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
 
