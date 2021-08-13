@@ -37,20 +37,11 @@ namespace HelloWorldWeb.Controllers
         {
             var json = JObject.Parse(content);
 
-            List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
-
+            
             var jsonArray = json["daily"].Take(7);
+            return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
 
-            foreach (var item in jsonArray)
-            {
-               
-                DailyWeatherRecord dailyWeatherRecord = CreateDailyWeatherRecordFromJToken(item);
-                result.Add(dailyWeatherRecord);
-
-            }
-
-            return result;
-
+            
         }
 
         private DailyWeatherRecord CreateDailyWeatherRecordFromJToken(JToken item)
@@ -78,10 +69,15 @@ namespace HelloWorldWeb.Controllers
                     return WeatherType.LightRain;
                 case "broken clouds":
                     return WeatherType.BrokenClouds;
+                case "scattered clouds":
+                    return WeatherType.ScatteredClouds;
+                case "clear sky":
+                    return WeatherType.ClearSky;
                 default:
-                    throw new Exception($"Unknown weather type {weather}.");
+                    throw new Exception($"Unknown weather type {weather}!");
             }
         }
+
 
         // GET api/<WeatherController>/5
         [HttpGet("{id}")]
