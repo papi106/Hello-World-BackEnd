@@ -47,21 +47,20 @@ namespace HelloWorldWeb.Controllers
             var jsonArray = json["daily"].Take(7);
 
             return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
-
-            
+                        
         }
 
         private DailyWeatherRecord CreateDailyWeatherRecordFromJToken(JToken item)
         {
             long unixDateTime = item.Value<long>("dt");
-            var day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;    
-
-            float temperature = item.SelectToken("temp").Value<float>("day");
-
+            var temperature = item.SelectToken("temp");
             string weather = item.SelectToken("weather")[0].Value<string>("description");
-            var type = Convert(weather);     
 
-            DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(day, temperature, type);
+            DateTime formatDateTime = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
+            float formatTemperature = DailyWeatherRecord.KelvinToCelsius(temperature.Value<float>("day"));
+            WeatherType formatType = this.Convert(weather);
+
+            DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(formatDateTime, formatTemperature, formatType);
             return dailyWeatherRecord;
         }
 

@@ -12,8 +12,6 @@ namespace HelloWorldWeb.Tests
 {
     public class TeamMemberTests
     {
-        private ITimeService timeService;
-
         private Mock<ITimeService> timeMock;
 
         private void InitializeTimeServiceMock()
