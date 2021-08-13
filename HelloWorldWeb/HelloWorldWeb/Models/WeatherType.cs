@@ -12,6 +12,7 @@ namespace HelloWorldWeb.Models
         LightRain,
         BrokenClouds,
         ScatteredClouds,
-        ClearSky
+        ClearSky,
+        ModerateRain
     }
 }

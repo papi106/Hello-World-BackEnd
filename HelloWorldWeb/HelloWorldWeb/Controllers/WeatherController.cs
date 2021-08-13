@@ -43,7 +43,8 @@ namespace HelloWorldWeb.Controllers
 
         public IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherRecordList(string content)
         {
-            var json = JObject.Parse(content);            
+            var json = JObject.Parse(content);   
+            
             var jsonArray = json["daily"].Take(7);
 
             return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
@@ -79,6 +80,8 @@ namespace HelloWorldWeb.Controllers
                     return WeatherType.ScatteredClouds;
                 case "clear sky":
                     return WeatherType.ClearSky;
+                case "moderate rain":
+                    return WeatherType.ModerateRain;
                 default:
                     throw new Exception($"Unknown weather type {weather}!");
             }
