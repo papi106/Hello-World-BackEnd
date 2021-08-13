@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace HelloWorldWeb.Controllers
 {
+    /// <summary>
+    /// Fetch data from weather API.
+    /// </summary>
     public class HomeController : Controller
     {
 #pragma warning disable IDE0052 // Remove unread private members

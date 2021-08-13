@@ -33,8 +33,10 @@ namespace HelloWorldWeb.Controllers
         {
             //var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat=46.7700&lon=23.5800&exclude=hourly,minutely&appid=87c518ece5346b1e8f0e944352222508");
 
-            var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=hourly,minutely&appid={apiKey}");
-            client.Timeout = -1;            //no timeout at all
+            var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=hourly,minutely&appid={apiKey}")
+            {
+                Timeout = -1            //no timeout at all
+            };
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             return ConvertResponseToWeatherRecordList(response.Content);            
@@ -59,14 +61,14 @@ namespace HelloWorldWeb.Controllers
 
             DateTime formatDateTime = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
             float formatTemperature = DailyWeatherRecord.KelvinToCelsius(temperature.Value<float>("day"));
-            WeatherType formatType = this.Convert(weather);
+            WeatherType formatType = Convert(weather);
 
-            DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(formatDateTime, formatTemperature, formatType);
+            DailyWeatherRecord dailyWeatherRecord = new(formatDateTime, formatTemperature, formatType);
             return dailyWeatherRecord;
         }
 
         //Converting weather type
-        private WeatherType Convert(string weather)
+        private static WeatherType Convert(string weather)
         {
             switch (weather)
             {
