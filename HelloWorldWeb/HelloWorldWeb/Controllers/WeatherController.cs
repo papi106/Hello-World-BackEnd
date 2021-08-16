@@ -96,8 +96,6 @@ namespace HelloWorldWeb.Controllers
             }
         }
 
-        //GET api/<WeaterController>/5
-
         /// <summary>
         /// Get a weather forecast for the day in specified amount of days from now.
         /// </summary>
