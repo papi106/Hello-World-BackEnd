@@ -6,6 +6,5 @@ namespace HelloWorldWeb.Services
 {
     public class TeamServiceBase
     {
-        private readonly ITimeService timeService;
     }
 }
