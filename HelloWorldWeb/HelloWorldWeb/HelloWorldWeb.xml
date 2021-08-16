@@ -9,5 +9,12 @@
             Fetch data from weather API.
             </summary>
         </member>
+        <member name="M:HelloWorldWeb.Controllers.WeatherController.Get(System.Int32)">
+            <summary>
+            Get a weather forecast for the day in specified amount of days from now.
+            </summary>
+            <param name="index">Amount of days from now.</param>
+            <returns>The weather forecast.</returns>
+        </member>
     </members>
 </doc>

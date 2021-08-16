@@ -91,5 +91,19 @@ namespace HelloWorldWeb.Controllers
                     throw new Exception($"Unknown weather type {weather}!");
             }
         }
+
+        //GET api/<WeaterController>/5
+
+        /// <summary>
+        /// Get a weather forecast for the day in specified amount of days from now.
+        /// </summary>
+        /// <param name="index">Amount of days from now.</param>
+        /// <returns>The weather forecast.</returns>
+        [HttpGet("{index}")]
+        public string Get(int index)
+        {
+            return "value";    
+        }
+
     }
 }
