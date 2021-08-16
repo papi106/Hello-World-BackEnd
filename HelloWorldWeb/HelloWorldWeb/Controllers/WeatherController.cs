@@ -84,6 +84,8 @@ namespace HelloWorldWeb.Controllers
                     return WeatherType.ClearSky;
                 case "moderate rain":
                     return WeatherType.ModerateRain;
+                case "overcast clouds":
+                    return WeatherType.OvercastClouds;
                 default:
                     throw new Exception($"Unknown weather type {weather}!");
             }
