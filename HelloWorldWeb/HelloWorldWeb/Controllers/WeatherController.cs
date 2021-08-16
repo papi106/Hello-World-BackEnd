@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/// <summary>
+/// <see href="https://openweathermap.org/api">API weather</see>
+/// </summary>
+
 
 namespace HelloWorldWeb.Controllers
 {
