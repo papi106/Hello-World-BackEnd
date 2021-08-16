@@ -22,7 +22,7 @@ namespace HelloWorldWeb.Tests
             var weatherControllerSettingsMock = new Mock<IWeatherControllerSettings>();
             string content = LoadJsonFromResource();
 
-            WeatherController weatherController = new WeatherController(weatherControllerSettingsMock.Object);
+            WeatherController weatherController = new(weatherControllerSettingsMock.Object);
 
 
             //Act
@@ -42,10 +42,9 @@ namespace HelloWorldWeb.Tests
             var resourceName = "HelloWorldWeb.Tests.TestData.ContentWeatherApi.json";
             var assembly = this.GetType().Assembly;
             var resourceStream = assembly.GetManifestResourceStream(resourceName);
-            using (var tr = new StreamReader(resourceStream))
-            {
-                return tr.ReadToEnd();
-            }
+
+            using var tr = new StreamReader(resourceStream);
+            return tr.ReadToEnd();
         }
     }
 }

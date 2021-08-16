@@ -9,7 +9,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Projects\SSH_Hello_World\Hello-World-BackEnd\HelloWorldWeb\HelloWorldWeb\HelloWorldWeb.xml</DocumentationFile>
-	<NoWarn>1701;1702;1591;1309;0649</NoWarn>
+	<NoWarn>1591;1717;1587</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

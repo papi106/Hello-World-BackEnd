@@ -75,25 +75,17 @@ namespace HelloWorldWeb.Controllers
         //Converting weather type
         private static WeatherType Convert(string weather)
         {
-            switch (weather)
+            return weather switch
             {
-                case "few clouds":
-                    return WeatherType.FewClouds;
-                case "light rain":
-                    return WeatherType.LightRain;
-                case "broken clouds":
-                    return WeatherType.BrokenClouds;
-                case "scattered clouds":
-                    return WeatherType.ScatteredClouds;
-                case "clear sky":
-                    return WeatherType.ClearSky;
-                case "moderate rain":
-                    return WeatherType.ModerateRain;
-                case "overcast clouds":
-                    return WeatherType.OvercastClouds;
-                default:
-                    throw new Exception($"Unknown weather type {weather}!");
-            }
+                "few clouds" => WeatherType.FewClouds,
+                "light rain" => WeatherType.LightRain,
+                "broken clouds" => WeatherType.BrokenClouds,
+                "scattered clouds" => WeatherType.ScatteredClouds,
+                "clear sky" => WeatherType.ClearSky,
+                "moderate rain" => WeatherType.ModerateRain,
+                "overcast clouds" => WeatherType.OvercastClouds,
+                _ => throw new Exception($"Unknown weather type {weather}!"),
+            };
         }
 
         /// <summary>

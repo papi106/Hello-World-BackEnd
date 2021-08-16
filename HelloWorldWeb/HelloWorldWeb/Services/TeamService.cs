@@ -42,7 +42,7 @@ namespace HelloWorldWeb.Services
 
         public int AddTeamMember(string name, ITimeService timeService)
         {
-            TeamMember member = new TeamMember(name, timeService);
+            TeamMember member = new(name, timeService);
             this.teamInfo.TeamMembers.Add(member);
             return member.Id;
         }
