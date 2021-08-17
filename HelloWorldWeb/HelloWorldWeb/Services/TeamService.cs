@@ -41,7 +41,7 @@ namespace HelloWorldWeb.Services
 
         public int AddTeamMember(string name)
         {
-            TeamMember member = new (name);
+            TeamMember member = new() { Name = name };
             this.teamInfo.TeamMembers.Add(member);
             return member.Id;
         }
@@ -54,6 +54,21 @@ namespace HelloWorldWeb.Services
         public void EditTeamMember(int id, string name)
         {
             this.GetTeamMemberById(id).Name = name;
+        }
+
+        public void SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(TeamMember teamMember)
+        {
+            throw new NotImplementedException();
         }
     }
 }

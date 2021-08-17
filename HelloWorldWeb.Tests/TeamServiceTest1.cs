@@ -26,7 +26,7 @@ namespace HelloWorldWeb.Test
             //Act
             teamService.DeleteTeamMember(3);
             //Assert
-            Assert.Equal(5, teamService.GetTeamInfo().TeamMembers.Count);
+            Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
 
         }
 
