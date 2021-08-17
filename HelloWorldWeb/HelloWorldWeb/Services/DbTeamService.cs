@@ -30,7 +30,7 @@ namespace HelloWorldWeb.Services
         {
             TeamMember teamMember = new() { Name = name };
             this.context.Add(teamMember);
-            this.context.SaveChangesAsync();
+            this.context.SaveChanges();
 
             return teamMember.Id;
         }
@@ -39,7 +39,7 @@ namespace HelloWorldWeb.Services
         {
             var teamMember = context.TeamMembers.Find(id);
             context.TeamMembers.Remove(teamMember);
-            context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
         public void EditTeamMember(int id, string name)

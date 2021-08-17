@@ -40,6 +40,7 @@
                 
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
+                deleteMember();
                 
             },
             error: function (err) {
