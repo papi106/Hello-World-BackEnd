@@ -35,6 +35,13 @@ namespace HelloWorldWeb.Services
             return teamMember.Id;
         }
 
+        public int AddTeamMember(TeamMember member)
+        {
+            context.Add(member);
+            context.SaveChanges();
+            return member.Id;
+        }
+
         public void DeleteTeamMember(int id)
         {
             var teamMember = context.TeamMembers.Find(id);
@@ -44,7 +51,11 @@ namespace HelloWorldWeb.Services
 
         public void EditTeamMember(int id, string name)
         {
-            throw new NotImplementedException();
+            TeamMember teamMember = GetTeamMemberById(id);
+
+            teamMember.Name = name;
+            context.Update(teamMember);
+            context.SaveChanges();
         }
 
         public TeamInfo GetTeamInfo()

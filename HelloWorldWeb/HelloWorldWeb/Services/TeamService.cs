@@ -70,5 +70,13 @@ namespace HelloWorldWeb.Services
         {
             throw new NotImplementedException();
         }
+
+        public int AddTeamMember(TeamMember member)
+        {
+            int id = teamInfo.TeamMembers.Max(memmber => member.Id) + 1;
+            member.Id = id;
+            this.teamInfo.TeamMembers.Add(member);
+            return member.Id;
+        }
     }
 }
