@@ -34,7 +34,7 @@ namespace HelloWorldWeb.Test
         }
 
 
-        [Fact (Skip ="Fails right now, edit later.")]
+        [Fact (Skip ="Test fails, review later.")] 
         public void EditTeamMemberInTheTeam()
         {
             //Assume

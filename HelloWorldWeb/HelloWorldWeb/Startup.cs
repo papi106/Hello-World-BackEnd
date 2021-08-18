@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HelloWorldWeb.Data;
+using System;
 
 namespace HelloWorldWeb
 {
@@ -19,6 +20,14 @@ namespace HelloWorldWeb
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
+        }
+
+        public static string ConvertHerokuStringToAspNetString(string herokuConnectionString)
+        {
+            var databaseUri = new Uri(herokuConnectionString);
+            string[] databaseUriUsername = databaseUri.UserInfo.Split(":");
+
+            return $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};User Id={databaseUriUsername[0]};Password={databaseUriUsername[1]};Pooling=true;SSL Mode=Require;TrustServerCertificate=True;";
         }
 
         public IConfiguration Configuration { get; }
