@@ -4,9 +4,11 @@
 
 using HelloWorldWeb.Services;
 using System;
+using System.Diagnostics;
 
 namespace HelloWorldWeb.Models
 {
+    [DebuggerDisplay("{Name}[{Id}]")]
     public class TeamMember
     {
         private static int idCount = 0;
