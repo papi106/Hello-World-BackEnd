@@ -28,29 +28,45 @@ namespace CSharpFeatures
 
             Func<string, string, string, string, Coffe> recipe = (customerInput == "FlatWhite") ? FlatWhite : Espresso;
             Coffe coffe = MakeCoffe("grain", "milk", "water", "sugar", recipe);
-            Console.WriteLine($"Here is your coffe: {coffe} .");
+
+            if (coffe == null)
+            {
+                Console.WriteLine("Sorry, your order cannot be completed.");
+            }
+            else
+            {
+                Console.WriteLine($"Here is your coffe: {coffe} .");
+            }
+    
         }
 
-        static Coffe MakeCoffe(string grains, string milk, string water, string sugar, Func<string, string, string, string, Coffe> recipe)
+        static Coffe MakeCoffe(string grains, string milk, string water, string sugar, 
+            Func<string, string, string, string, Coffe> recipe)
         {
+            Coffe coffe = null;
             try
             {
                 Console.WriteLine("Start preparing coffe.");
-                var coffe = recipe(grains, milk, water, sugar);
-                return coffe;
+                coffe = recipe(grains, milk, water, sugar);
             }
-            catch
+            catch (RecipeUnavailableException e)
             {
-                throw;
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong, see exception details: {e.Message}");
             }
             finally
             {
                 Console.WriteLine("Finished.");
             }
+            return coffe;
         }
 
         static Coffe Espresso(string grains, string milk, string water, string sugar)
         {
+            throw new ApplicationException();
             return new Coffe("Espresso");
         }
         static Coffe FlatWhite(string grains, string milk, string water, string sugar)
