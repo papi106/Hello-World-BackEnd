@@ -29,7 +29,7 @@ namespace HelloWorldWeb.Models
         public int GetAge()
         {
             var age = DateTime.Now.Subtract(BirthDate).Days;
-            age = age / 365;
+            age /= 365;
 
             return age;
         }

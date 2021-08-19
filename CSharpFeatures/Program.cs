@@ -10,7 +10,7 @@ namespace CSharpFeatures
         static void Main(string[] args)
         {
 
-/*            TeamMember teamMember = new TeamMember() { Name = "Member 1" };
+            TeamMember teamMember = new() { Name = "Member 1" };
             string jsonString = JsonSerializer.Serialize(teamMember);
 
             Console.WriteLine(jsonString);
@@ -21,7 +21,7 @@ namespace CSharpFeatures
             var expectedOutput = readText.Result;
             var teamMemberDeserialized = JsonSerializer.Deserialize<TeamMember>(expectedOutput);
 
-            Console.WriteLine(teamMemberDeserialized);*/
+            Console.WriteLine(teamMemberDeserialized);
 
             Console.Write("What would you like? ");
             var customerInput = Console.ReadLine();
@@ -67,7 +67,6 @@ namespace CSharpFeatures
         static Coffe Espresso(string grains, string milk, string water, string sugar)
         {
             throw new ApplicationException();
-            return new Coffe("Espresso");
         }
         static Coffe FlatWhite(string grains, string milk, string water, string sugar)
         {
