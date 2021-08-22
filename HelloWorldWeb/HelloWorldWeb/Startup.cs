@@ -42,7 +42,9 @@ namespace HelloWorldWeb
             
             //Services for interfaces
             services.AddControllersWithViews();
+            
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
+            
             services.AddSingleton<ITeamService, TeamService>();
             services.AddSingleton<ITimeService,TimeService>();
 
@@ -93,6 +95,7 @@ namespace HelloWorldWeb
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
                 endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
