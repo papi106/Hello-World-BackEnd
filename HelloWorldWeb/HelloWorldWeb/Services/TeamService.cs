@@ -41,7 +41,6 @@ namespace HelloWorldWeb.Services
             return this.teamInfo;
         }
 
-
         public TeamMember GetTeamMemberById(int id)
         {
             Console.WriteLine(id);
@@ -53,19 +52,20 @@ namespace HelloWorldWeb.Services
             TeamMember member = new(name, timeService);
             this.teamInfo.TeamMembers.Add(member);
 
-            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name);
+            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
             return member.Id;
+        }
+
+        public void EditTeamMember(int id, string name)
+        {
+
+            TeamMember member = GetTeamMemberById(id);
+            member.Name = name;
         }
 
         public void DeleteTeamMember(int id)
         {
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
-        }
-
-        public void EditTeamMember(int id, string name)
-        {
-            TeamMember member = this.teamInfo.TeamMembers.Single(element => element.Id == id);
-            member.Name = name;
         }
     }
 }

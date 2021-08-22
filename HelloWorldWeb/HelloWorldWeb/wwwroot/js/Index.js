@@ -1,21 +1,21 @@
-﻿$(document).ready(function () {
+﻿var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
+
+connection.on("NewTeamMemberAdded", function (name, id) {
+    console.log(`New team member added: ${name}, ${id}`);
+    createNewcomer(name, id);
+});
+
+connection.start().then(function () {
+    console.log("SignalR connection started");
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+
+
+$(document).ready(function () {
     // see https://api.jquery.com/click/
 
     deleteMember();
-    
-    var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
-    connection.on("NewTeamMemberAdded", function (name, id) {
-        console.log(`New team member added: ${name}, ${id}`);
-        createNewcomer(name, id)
-
-    });
-
-    connection.start().then(function () {
-        console.log('Connection Started')
-
-    }).catch(function (err) {
-        return console.error(err.toString());
-    });
 
     //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
@@ -41,48 +41,30 @@
             method: "POST",
             url: "/Home/AddTeamMember",
             data: { "name": newcomerName },
-           /* success: function (result) {
-                var ind = result;
+            success: function (result) {
 
                 $("#teamList").append(
-                    `<li class="member" data-member-id="${ind}">
+                    `<li class="member" data-member-id="${result}">
                         <span class="memberName">${newcomerName}</span>
-                        <span class="edit fa fa-pencil" onClick="editMember()"></span>
-                        <span class="deleteA fa fa-remove" ></span></>
+                        <span class="edit fa fa-pencil" onclick="editMember()"></span>
+                        <span class="delete fa fa-remove"></span ></>
                     </li>`
                 );
                 
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
-                
-            },
-            error: function (err) {
-                console.log(err);
-            }*/
+                deleteMember();
+                editMember();
+            }
         })
-    });
-
-    function createNewcomer(name, id) {
-        // Remember string interpolation
-        $("#teamList").append(
-            `<li class="member" data-member-id="${id}">
-            <span class="name">${name}</span>
-            <span class="edit fa fa-pencil"></span>
-            <span class="delete fa fa-remove" ></span></>
-        </li>`
-        );
-    }
-/*    $("#clear").click(function () {
-            $("#newcomer").val("");
-        })*/
-
-
+    })
 
     //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
 
         var id = $("#editTeamMember").attr('data-member-id');
         var newName = $("#memberName").val();
+
         console.log('submit changes to server');
 
         $.ajax({
@@ -106,9 +88,24 @@
 
 });
 
+function editMember() {
+    //open the Modal View
+    $("#teamList").on("click", ".edit", function () {
+        var targetMemberTag = $(this).closest('li');
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+
+        $('#editTeamMember').attr("data-member-id", id);
+        $('#memberName').val(currentName);
+        $('#editTeamMember').modal('show');
+
+    })
+}
+
+
 //delete button member
 function deleteMember() {
-    $(".deleteA").off("click").click(function () {
+    $(".delete").off("click").click(function () {
         var id = $(this).parent().attr("data-member-id");
         $.ajax({
             url: "/Home/DeleteTeamMember",
@@ -124,17 +121,17 @@ function deleteMember() {
         })
     })
 }
-function editMember() {
-    //open the Modal View
-    $("#teamList").off("click").on("click", ".edit", function () {
-        var targetMemberTag = $(this).closest('li');
 
-        var id = targetMemberTag.attr('data-member-id');
-        var currentName = targetMemberTag.find(".memberName").text();
-
-        $('#editTeamMember').attr("data-member-id", id);
-        $('#memberName').val(currentName);
-        $('#editTeamMember').modal('show');
-
-    })
+function createNewcomer(name, id) {
+    // Remember string interpolation
+    $("#teamMembers").append(`
+            <li class="member" data-member-id="${id}">
+                <span class="memberName" >${name}</span>
+                <span class="edit fa fa-pencil" onclick="editMember()"></span>
+                <span class="delete fa fa-remove"></span>
+            </li>`
+    );
 }
+$("#clear").click(function () {
+    $("#newcomer").val("");
+})
