@@ -10,7 +10,7 @@
         {
             CoffeType = type;
         }
-        public string CoffeType { get; }
+        public string CoffeType { get; set; }
 
         public override string ToString()
         {

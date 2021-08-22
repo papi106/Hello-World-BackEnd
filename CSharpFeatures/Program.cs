@@ -21,7 +21,7 @@ namespace CSharpFeatures
             var expectedOutput = readText.Result;
             var teamMemberDeserialized = JsonSerializer.Deserialize<TeamMember>(expectedOutput);
 
-            Console.WriteLine(teamMemberDeserialized);
+            Console.WriteLine(teamMemberDeserialized.ToString());
 
             Console.Write("What would you like? ");
             var customerInput = Console.ReadLine();
