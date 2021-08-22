@@ -4,9 +4,11 @@ using Xunit;
 
 namespace HelloWorldWeb.Test
 {
+
     public class TeamServiceTests
     {
-        [Fact]
+
+        /*[Fact]
         public void AddTeamMemberToTheTeam()
         {
             //Assume
@@ -52,25 +54,6 @@ namespace HelloWorldWeb.Test
             //Assert
             Assert.Equal("NewName", teamService.GetTeamMemberById(memberId).Name);
 
-        }
-
-/*        [Fact]
-        public void CheckIdProblem()
-        {
-            //Asume
-            ITeamService teamService = new TeamService();
-            var memberToBeDeleted = teamService.GetTeamInfo().TeamMembers[teamService.GetTeamInfo().TeamMembers.Count - 2];
-            var newMemberName = "Boris";
-
-            //Act
-            teamService.DeleteTeamMember(memberToBeDeleted.Id);
-            var id = teamService.AddTeamMember(newMemberName);
-            teamService.DeleteTeamMember(id);
-
-            //Assert
-            var member = teamService.GetTeamInfo().TeamMembers.Find(element => element.Name == "Boris");
-            Assert.Null(member);
         }*/
-
     }
 }

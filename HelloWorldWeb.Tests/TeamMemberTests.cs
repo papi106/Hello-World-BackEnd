@@ -13,6 +13,11 @@ namespace HelloWorldWeb.Tests
     public class TeamMemberTests
     {
         private Mock<ITimeService> timeMock;
+        public TeamMemberTests()
+        {
+            InitializeTimeServiceMock();
+
+        }
 
         private void InitializeTimeServiceMock()
         {
@@ -41,12 +46,4 @@ namespace HelloWorldWeb.Tests
         }
 
     }
-
-/*    internal class FakeTimeService : ITimeService
-    {
-        public DateTime GetNow()
-        {
-            return new DateTime(2021, 08, 11);
-        }
-    }*/
 }
