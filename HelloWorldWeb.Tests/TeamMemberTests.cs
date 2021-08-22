@@ -33,8 +33,10 @@ namespace HelloWorldWeb.Tests
             InitializeTimeServiceMock();
             var timeService = timeMock.Object;
 
-            var newTeamMember = new TeamMember("Patrick", timeService);
-            newTeamMember.BirthDate = new DateTime(1997, 07, 27);
+            var newTeamMember = new TeamMember("Patrick", timeService)
+            {
+                BirthDate = new DateTime(1997, 07, 27)
+            };
 
             //Act
             int age = newTeamMember.GetAge();
