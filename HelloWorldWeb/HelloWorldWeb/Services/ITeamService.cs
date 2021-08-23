@@ -17,6 +17,5 @@ namespace HelloWorldWeb.Services
         void EditTeamMember(int id, string name);
 
         TeamMember GetTeamMemberById(int id);
-        void AddTeamMember(TeamMember teamMember);
     }
 }
