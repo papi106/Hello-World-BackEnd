@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using System;
+using HelloWorldWebApp.Services;
 
 namespace HelloWorldWeb
 {
@@ -47,6 +48,7 @@ namespace HelloWorldWeb
             
             services.AddSingleton<ITeamService, TeamService>();
             services.AddSingleton<ITimeService,TimeService>();
+            services.AddSingleton<IBroadcastService, BroadcastService>();
 
             //add swagger for API documentation
             services.AddSwaggerGen(c =>

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HelloWorldWeb.Models;
 using HelloWorldWeb.Services;
+using HelloWorldWebApp.Services;
 using Microsoft.AspNetCore.SignalR;
 
 namespace HelloWorldWeb.Services
@@ -15,45 +16,54 @@ namespace HelloWorldWeb.Services
     {
         private readonly TeamInfo teamInfo;
         private readonly ITimeService timeService;
-        private readonly IHubContext<MessageHub> messageHub;
+        private readonly IBroadcastService broadcastService;
 
         public TeamService(IHubContext<MessageHub> messageHubContext)
         {
-            //using dependency injection
-            this.messageHub = messageHubContext;
+            this.broadcastService = broadcastService;
 
             this.teamInfo = new TeamInfo
             {
                 Name = "Team 1",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.AddTeamMember("Ema", (TimeService)timeService);
-            this.AddTeamMember("Sorina", (TimeService)timeService);
-            this.AddTeamMember("Fineas", (TimeService)timeService);
-            this.AddTeamMember("Radu", (TimeService)timeService);
-            this.AddTeamMember("Tudor", (TimeService)timeService);
-            this.AddTeamMember("Patrick", (TimeService)timeService);
 
+            string[] teamMembersData = new string[]
+           {
+                "Ema",
+                "Sorina",
+                "Fineas",
+                "Patrick",
+                "Radu P.",
+                "Tudor",
+           };
+
+            foreach (string name in teamMembersData)
+            {
+                AddTeamMember(name);
+            }
         }
 
         public TeamInfo GetTeamInfo()
         {
-            return this.teamInfo;
+            return teamInfo;
         }
 
-        public TeamMember GetTeamMemberById(int id)
+        public void DeleteTeamMember(int id)
         {
-            Console.WriteLine(id);
-            return this.teamInfo.TeamMembers.Find(x => x.Id == id);
+            TeamMember member = GetTeamMemberById(id);
+            teamInfo.TeamMembers.Remove(member);
+            this.broadcastService.DeleteTeamMember(id);
         }
 
-        public int AddTeamMember(string name, ITimeService timeService)
+        public int AddTeamMember(string name)
         {
-            TeamMember member = new(name, timeService);
-            this.teamInfo.TeamMembers.Add(member);
+            TeamMember newMember = new(name, timeService);
+            teamInfo.TeamMembers.Add(newMember);
 
-            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
-            return member.Id;
+            broadcastService.NewTeamMemberAdded(newMember.Name, newMember.Id);
+
+            return newMember.Id;
         }
 
         public void EditTeamMember(int id, string name)
@@ -61,11 +71,13 @@ namespace HelloWorldWeb.Services
 
             TeamMember member = GetTeamMemberById(id);
             member.Name = name;
+
+            broadcastService.EditTeamMember(name, id);
         }
 
-        public void DeleteTeamMember(int id)
+        public TeamMember GetTeamMemberById(int id)
         {
-            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
+            return teamInfo.TeamMembers.Find(x => x.Id == id);
         }
     }
 }

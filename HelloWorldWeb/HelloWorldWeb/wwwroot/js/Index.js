@@ -1,9 +1,5 @@
-﻿var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
-
-connection.on("NewTeamMemberAdded", function (name, id) {
-    console.log(`New team member added: ${name}, ${id}`);
-    createNewcomer(name, id);
-});
+﻿"use strict";
+var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
 
 connection.start().then(function () {
     console.log("SignalR connection started");
@@ -11,30 +7,26 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
+connection.on("NewTeamMemberAdded", (name, id) => {
+    console.log(`New team member added: ${name}, ${id}`);
+    createNewcomer(name, id);
+});
+
+connection.on("DeleteTeamMember", id => {
+    deleteTeamMemberFromList(id)
+})
+
+connection.on("EditTeamMember", (name, id) => {
+    editTeamMemberFromList(name, id)
+})
+
 
 $(document).ready(function () {
     // see https://api.jquery.com/click/
 
-    deleteMember();
-
-    //disable createButton when the field is empty
-    $('#nameField').on('input change', function () {
-        if ($(this).val() != '') {
-            $('#createButton').prop('disabled', false);
-        } else {
-            $('#createButton').prop('disabled', true);
-        }
-    });
-
-    //clearButton
-    $("#clearButton").click(function () {
-        $("#nameField").val("");
-        $('#createButton').prop('disabled', true);
-    });
-
-
     //add team member button
     $("#createButton").click(function () {
+
         var newcomerName = $("#nameField").val();
 
         $.ajax({
@@ -43,18 +35,16 @@ $(document).ready(function () {
             data: { "name": newcomerName },
             success: function (result) {
 
-                $("#teamList").append(
+/*                $("#teamList").append(
                     `<li class="member" data-member-id="${result}">
                         <span class="memberName">${newcomerName}</span>
                         <span class="edit fa fa-pencil" onclick="editMember()"></span>
                         <span class="delete fa fa-remove"></span ></>
                     </li>`
-                );
+                );*/
                 
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
-                deleteMember();
-                editMember();
             }
         })
     })
@@ -74,21 +64,12 @@ $(document).ready(function () {
                 "id": id,
                 "name": newName
             },
-            success: function (result) {
+/*            success: function (result) {
                 console.log(`edited the member: ${id}`);
-                location.reload();
-            }
+                location.reload();*/
         })
     })
 
-    //cancel the edit member
-    $("#editTeamMember").on("click", "#cancel", function () {
-        console.log('cancel changes');
-    })
-
-});
-
-function editMember() {
     //open the Modal View
     $("#teamList").on("click", ".edit", function () {
         var targetMemberTag = $(this).closest('li');
@@ -100,12 +81,12 @@ function editMember() {
         $('#editTeamMember').modal('show');
 
     })
-}
+});
 
 
 //delete button member
 function deleteMember() {
-    $(".delete").off("click").click(function () {
+/*    $(".delete").off("click").click(function () {*/
         var id = $(this).parent().attr("data-member-id");
         $.ajax({
             url: "/Home/DeleteTeamMember",
@@ -113,25 +94,44 @@ function deleteMember() {
             data: {
                 "id": id
             },
-            success: function (result) {
+/*            success: function (result) {
                 console.log("deleted member:" + id);
                 $(this).parent().remove();
                 location.reload();
-            }
+            }*/
         })
-    })
+/*    })*/
 }
 
-function createNewcomer(name, id) {
-    // Remember string interpolation
-    $("#teamMembers").append(`
-            <li class="member" data-member-id="${id}">
-                <span class="memberName" >${name}</span>
-                <span class="edit fa fa-pencil" onclick="editMember()"></span>
-                <span class="delete fa fa-remove"></span>
-            </li>`
+(function () {
+    //disable createButton when the field is empty
+    $('#nameField').on('input change', function () {
+        if ($(this).val() != '') {
+            $('#createButton').prop('disabled', false);
+        } else {
+            $('#createButton').prop('disabled', true);
+        }
+    });
+});
+
+(function () {
+    //clearButton
+    $("#clearButton").click(function () {
+        $("#nameField").val("");
+        $('#createButton').prop('disabled', true);
+    });
+});
+
+const createNewcomer = (name, id) => {
+    $("#teamList").append(
+        `<li class="member" data-member-id="${id}">
+            <span class="memberName">${name}</span>
+            <span class="edit fa fa-pencil"></span>
+            <span class="delete fa fa-remove" onclick="deleteMember(${id})"></span>
+        </li>`
     );
 }
-$("#clear").click(function () {
-    $("#newcomer").val("");
-})
+
+const deleteTeamMemberFromList = (id) => $(`li[data-member-id=${id}]`).remove()
+
+const editTeamMemberFromList = (name, id) => $(`li[data-member-id=${id}]`).children(".memberName").text(name)

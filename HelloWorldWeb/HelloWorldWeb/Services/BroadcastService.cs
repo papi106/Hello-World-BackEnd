@@ -21,14 +21,14 @@ namespace HelloWorldWebApp.Services
             messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, id);
         }
 
-        public void TeamMemberDeleted(int id)
+        public void DeleteTeamMember(int id)
         {
-            messageHub.Clients.All.SendAsync("TeamMemberDeleted", id);
+            messageHub.Clients.All.SendAsync("DeleteTeamMember", id);
         }
 
-        public void UpdateTeamMember(string name, int id)
+        public void EditTeamMember(string name, int id)
         {
-            messageHub.Clients.All.SendAsync("UpdateTeamMember", name, id);
+            messageHub.Clients.All.SendAsync("EditTeamMember", name, id);
         }
     }
 }

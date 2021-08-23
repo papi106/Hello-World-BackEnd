@@ -16,10 +16,10 @@ namespace HelloWorldWeb.Models
         
         public TeamMember(string name, ITimeService timeService)
         {
+            Id = idCount++;
+            Name = name;
+
             this.timeService = timeService;
-            this.Id = idCount;
-            this.Name = name;
-            idCount++;
         }
 
         public int Id { get; set; }

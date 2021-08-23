@@ -10,14 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace HelloWorldWeb.Controllers
 {
-    /// <summary>
-    /// Fetch data from weather API.
-    /// </summary>
     public class HomeController : Controller
     {
-#pragma warning disable IDE0052 // Remove unread private members
         private readonly ILogger<HomeController> logger;
-#pragma warning restore IDE0052 // Remove unread private members
         private readonly ITeamService teamService;
         private readonly ITimeService timeService;
 
@@ -28,33 +23,33 @@ namespace HelloWorldWeb.Controllers
             this.timeService = timeService;
         }
 
-        [HttpGet]
-        public int GetCount()
-        {
-            return this.teamService.GetTeamInfo().TeamMembers.Count;
-        }
-
         [HttpPost]
         public int AddTeamMember(string name)
         {
-            return this.teamService.AddTeamMember(name, timeService);
+            return teamService.AddTeamMember(name);
         }
 
         [HttpDelete]
         public void DeleteTeamMember(int id)
         {
-            this.teamService.DeleteTeamMember(id);
+            teamService.DeleteTeamMember(id);
         }
 
         [HttpPost]
         public void EditTeamMember(int id, string name)
         {
-            this.teamService.EditTeamMember(id, name);
+            teamService.EditTeamMember(id, name);
+        }
+
+        [HttpGet]
+        public int GetCount()
+        {
+            return teamService.GetTeamInfo().TeamMembers.Count;
         }
 
         public IActionResult Index()
         {
-            return this.View(this.teamService.GetTeamInfo());
+            return this.View(teamService.GetTeamInfo());
         }
 
         public IActionResult Privacy()
