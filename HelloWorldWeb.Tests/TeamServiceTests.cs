@@ -1,42 +1,41 @@
+using HelloWorldWeb.Models;
 using HelloWorldWeb.Services;
-using System;
+using Microsoft.AspNetCore.SignalR;
+using Moq;
 using Xunit;
 
-namespace HelloWorldWeb.Test
+/*namespace HelloWorldWeb.Tests
 {
-
-    public class TeamServiceTests
+    public class TeamServiceTest
     {
+        private readonly ITimeService timeService = null;
+        private Mock<IHubContext<MessageHub>> messageHub = null;
 
-        /*[Fact]
+        [Fact]
         public void AddTeamMemberToTheTeam()
         {
-            //Assume
-            ITeamService teamService = new TeamService();
-            ITimeService timeService = new TimeService();
+            // Assume
+            ITeamService teamService = new TeamService(GetMockedMessageHub());
 
-            //Act
-            teamService.AddTeamMember("Patrick", timeService);
+            // Act
+            teamService.AddTeamMember(new Models.TeamMember("Patrick", timeService));
 
-            //Assert
+            // Assert
             Assert.Equal(7, teamService.GetTeamInfo().TeamMembers.Count);
-
         }
 
         [Fact]
         public void DeleteTeamMemberFromTheTeam()
         {
-            //Assume
-            ITeamService teamService = new TeamService();
-            var targetTeamMember = teamService.GetTeamInfo().TeamMembers[1];
-            int targetId = targetTeamMember.Id;
+            // Assume
+            ITeamService teamService = new TeamService(GetMockedMessageHub());
+            int idCount = TeamMember.GetIdCounter();
 
-            //Act
-            teamService.DeleteTeamMember(targetId);
+            // Act
+            teamService.DeleteTeamMember(idCount);
 
-            //Assert
-            Assert.Equal(5, teamService.GetTeamInfo().TeamMembers.Count);
-
+            // Assert
+            Assert.Null(teamService.GetTeamMemberById(idCount));
         }
 
 
@@ -44,7 +43,7 @@ namespace HelloWorldWeb.Test
         public void EditTeamMemberInTheTeam()
         {
             //Assume
-            ITeamService teamService = new TeamService();
+            ITeamService teamService = new TeamService(GetMockedMessageHub());
             var targetTeamMember = teamService.GetTeamInfo().TeamMembers[0];
             var memberId = targetTeamMember.Id;
 
@@ -54,6 +53,29 @@ namespace HelloWorldWeb.Test
             //Assert
             Assert.Equal("NewName", teamService.GetTeamMemberById(memberId).Name);
 
-        }*/
+        }
+
+        private void InitializeMessageHubMock()
+        {
+            // https://www.codeproject.com/Articles/1266538/Testing-SignalR-Hubs-in-ASP-NET-Core-2-1
+            Mock<IClientProxy> hubAllClients = new();
+            Mock<IHubClients> hubClients = new();
+            hubClients.Setup(_ => _.All).Returns(hubAllClients.Object);
+            messageHub = new Mock<IHubContext<MessageHub>>();
+
+
+
+            messageHub.SetupGet(_ => _.Clients).Returns(hubClients.Object);
+        }
+
+        private IHubContext<MessageHub> GetMockedMessageHub()
+        {
+            if (messageHub == null)
+            {
+                InitializeMessageHubMock();
+            }
+
+            return messageHub.Object;
+        }
     }
-}
+}*/

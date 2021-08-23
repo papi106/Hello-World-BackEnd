@@ -34,5 +34,10 @@ namespace HelloWorldWeb.Models
 
             return age;
         }
+
+        public static int GetIdCounter()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

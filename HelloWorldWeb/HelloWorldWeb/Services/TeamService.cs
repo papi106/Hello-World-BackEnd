@@ -67,5 +67,10 @@ namespace HelloWorldWeb.Services
         {
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
         }
+
+        public void AddTeamMember(TeamMember teamMember)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
