@@ -32,7 +32,6 @@ namespace HelloWorldWeb.Tests
             //Assume
             InitializeTimeServiceMock();
             var timeService = timeMock.Object;
-
             var newTeamMember = new TeamMember("Patrick", timeService)
             {
                 BirthDate = new DateTime(1997, 07, 27)

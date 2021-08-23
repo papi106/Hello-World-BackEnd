@@ -44,6 +44,11 @@ namespace HelloWorldWeb.Services
             }
         }
 
+        public TeamService(IBroadcastService broadcastService)
+        {
+            this.broadcastService = broadcastService;
+        }
+
         public TeamInfo GetTeamInfo()
         {
             return teamInfo;
