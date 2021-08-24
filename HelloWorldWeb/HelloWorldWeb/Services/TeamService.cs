@@ -18,7 +18,7 @@ namespace HelloWorldWeb.Services
         private readonly ITimeService timeService;
         private readonly IBroadcastService broadcastService;
 
-        public TeamService(IHubContext<MessageHub> messageHubContext)
+        public TeamService(IBroadcastService broadcastService)
         {
             this.broadcastService = broadcastService;
 
@@ -42,11 +42,6 @@ namespace HelloWorldWeb.Services
             {
                 AddTeamMember(name);
             }
-        }
-
-        public TeamService(IBroadcastService broadcastService)
-        {
-            this.broadcastService = broadcastService;
         }
 
         public TeamInfo GetTeamInfo()
