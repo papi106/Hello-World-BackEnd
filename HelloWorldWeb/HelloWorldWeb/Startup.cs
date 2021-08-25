@@ -44,7 +44,7 @@ namespace HelloWorldWeb
             services.AddDbContext<ApplicationDbContext>(options =>
 
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("PostgresHerokuConnection")));
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

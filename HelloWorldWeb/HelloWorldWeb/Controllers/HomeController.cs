@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using HelloWorldWeb.Models;
 using HelloWorldWeb.Services;
+using HelloWorldWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -15,12 +16,14 @@ namespace HelloWorldWeb.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly ITeamService teamService;
         private readonly ITimeService timeService;
+        private readonly IBroadcastService broadcastService;
 
         public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService)
         {
             this.logger = logger;
             this.teamService = teamService;
             this.timeService = timeService;
+            this.broadcastService = broadcastService;
         }
 
         [HttpPost]
@@ -30,19 +33,22 @@ namespace HelloWorldWeb.Controllers
             TeamMember member = new TeamMember();
             member.Name = name;
             return this.teamService.AddTeamMember(member);
-            
+            broadcastService.NewTeamMemberAdded(member.Name, member.Id);
+
         }
 
         [HttpDelete]
         public void DeleteTeamMember(int id)
         {
             teamService.DeleteTeamMember(id);
+            this.broadcastService.DeleteTeamMember(id);
         }
 
         [HttpPost]
         public void EditTeamMember(int id, string name)
         {
             teamService.EditTeamMember(id, name);
+            broadcastService.EditTeamMember(name, id);
         }
 
         [HttpGet]
