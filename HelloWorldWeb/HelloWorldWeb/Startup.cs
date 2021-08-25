@@ -54,13 +54,11 @@ namespace HelloWorldWeb
             //Services for interfaces
             services.AddControllersWithViews();
 
-            services.AddScoped<ITeamService, DbTeamService>();
-
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
 
             services.AddSingleton<IBroadcastService, BroadcastService>();
 
-            services.AddSingleton<ITeamService, TeamService>();
+            services.AddScoped<ITeamService, DbTeamService>();
             services.AddSingleton<ITimeService, TimeService>();
 			
 			services.AddSignalR();
