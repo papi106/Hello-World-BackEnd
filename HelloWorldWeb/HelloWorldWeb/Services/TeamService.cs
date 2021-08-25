@@ -6,54 +6,80 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HelloWorldWeb.Models;
+using HelloWorldWeb.Services;
+using HelloWorldWebApp.Services;
+using Microsoft.AspNetCore.SignalR;
 
 namespace HelloWorldWeb.Services
 {
     public class TeamService : ITeamService
     {
         private readonly TeamInfo teamInfo;
+        private readonly ITimeService timeService;
+        private readonly IBroadcastService broadcastService;
 
-        public TeamService()
+        public TeamService(IBroadcastService broadcastService)
         {
+            this.broadcastService = broadcastService;
+
             this.teamInfo = new TeamInfo
             {
                 Name = "Team 1",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.AddTeamMember("Ema");
-            this.AddTeamMember("Sorina");
-            this.AddTeamMember("Fineas");
-            this.AddTeamMember("Radu");
-            this.AddTeamMember("Tudor");
-            this.AddTeamMember("Patrick");
+
+            string[] teamMembersData = new string[]
+           {
+                "Ema",
+                "Sorina",
+                "Fineas",
+                "Patrick",
+                "Radu P.",
+                "Tudor",
+           };
+
+            foreach (string name in teamMembersData)
+            {
+                AddTeamMember(name);
+            }
         }
 
         public TeamInfo GetTeamInfo()
         {
-            return this.teamInfo;
-        }
-
-        public TeamMember GetTeamMemberById(int id)
-        {
-            Console.WriteLine(id);
-            return this.teamInfo.TeamMembers.Find(x => x.Id == id);
-        }
-
-        public int AddTeamMember(string name)
-        {
-            TeamMember member = new() { Name = name };
-            this.teamInfo.TeamMembers.Add(member);
-            return member.Id;
+            return teamInfo;
         }
 
         public void DeleteTeamMember(int id)
         {
-            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
+            TeamMember member = GetTeamMemberById(id);
+            teamInfo.TeamMembers.Remove(member);
+            this.broadcastService.DeleteTeamMember(id);
+        }
+
+        public int AddTeamMember(string name)
+        {
+
+            TeamMember newMember = new(name, timeService);
+            teamInfo.TeamMembers.Add(newMember);
+
+            broadcastService.NewTeamMemberAdded(newMember.Name, newMember.Id);
+
+            return newMember.Id;
+			
         }
 
         public void EditTeamMember(int id, string name)
         {
-            this.GetTeamMemberById(id).Name = name;
+
+            TeamMember member = GetTeamMemberById(id);
+            member.Name = name;
+
+            broadcastService.EditTeamMember(name, id);
+        }
+
+        public TeamMember GetTeamMemberById(int id)
+        {
+            return teamInfo.TeamMembers.Find(x => x.Id == id);
         }
 
         public void SaveChangesAsync()

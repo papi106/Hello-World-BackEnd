@@ -1,9 +1,19 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
+    var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
 
-    deleteMember();
+    setDelete();
+    setEdit();
 
-    //disable createButton when the field is empty
+    connection.on("NewTeamMemberAdded", createNewLine);
+    connection.on("DeleteTeamMember", deleteMember);
+    connection.on("EditTeamMember", editMember);
+
+    connection.start().then(function () {
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
             $('#createButton').prop('disabled', false);
@@ -12,102 +22,99 @@
         }
     });
 
-    //clearButton
     $("#clearButton").click(function () {
         $("#nameField").val("");
         $('#createButton').prop('disabled', true);
     });
 
-
-    //add team member button
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
-
         $.ajax({
-            method: "POST",
-            url: "/Home/AddTeamMember",
-            data: { "name": newcomerName },
-            success: function (result) {
-                var ind = result;
 
-                $("#teamList").append(
-                    `<li class="member" data-member-id="${ind}">
-                        <span class="memberName">${newcomerName}</span>
-                        <span class="edit fa fa-pencil" onClick="editMember()"></span>
-                        <span class="deleteA fa fa-remove" ></span></>
-                    </li>`
-                );
-                
-                $("#nameField").val("");
-                $('#createButton').prop('disabled', true);
-                deleteMember();
-                
-            },
-            error: function (err) {
-                console.log(err);
+            method: "GET",
+            url: "/Home/GetCount",
+
+            success: (resultGet) => {
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/AddTeamMember",
+                    data: {
+                        "name": newcomerName
+                    },
+                    success: (resultPost) => {
+                        $("#nameField").val("");
+                        $('#createButton').prop('disabled', true);
+                    }
+                })
             }
-        })
-    });
+        });
+    })
 
-
-
-    //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
 
-        var id = $("#editTeamMember").attr('data-member-id');
-        var newName = $("#memberName").val();
-        console.log('submit changes to server');
+        var id = $('#editTeamMember').attr("data-member-id");
+        var name = $('#memberName').val();
 
         $.ajax({
-            url: "/Home/EditTeamMember",
+            url: "/Home/EditTeamMemberName",
             method: "POST",
             data: {
                 "id": id,
-                "name": newName
+                "name": name
             },
             success: function (result) {
-                console.log(`edited the member: ${id}`);
-                location.reload();
             }
         })
     })
 
-    //cancel the edit member
+
     $("#editTeamMember").on("click", "#cancel", function () {
         console.log('cancel changes');
     })
-
 });
 
-//delete button member
-function deleteMember() {
-    $(".deleteA").off("click").click(function () {
+function setDelete() {
+    $(".delete").click(function () {
         var id = $(this).parent().attr("data-member-id");
         $.ajax({
-            url: "/Home/DeleteTeamMember",
             method: "DELETE",
+            url: "/Home/DeleteTeamMember",
             data: {
                 "id": id
             },
-            success: function (result) {
-                console.log("deleted member:" + id);
-                $(this).parent().remove();
-                location.reload();
+            success: (result) => {
+                console.log("delete:" + id);
             }
         })
-    })
+    }
+    );
 }
-function editMember() {
-    //open the Modal View
-    $("#teamList").off("click").on("click", ".edit", function () {
-        var targetMemberTag = $(this).closest('li');
 
+function setEdit() {
+    $("#teamList").on("click", ".edit", function () {
+        var targetMemberTag = $(this).closest('li');
         var id = targetMemberTag.attr('data-member-id');
         var currentName = targetMemberTag.find(".memberName").text();
-
         $('#editTeamMember').attr("data-member-id", id);
         $('#memberName').val(currentName);
         $('#editTeamMember').modal('show');
-
     })
+}
+
+var createNewLine = (name, id) => {
+    $("#teamList").append(`<li class="member" data-member-id="${id}">
+                        <span class="memberName">${name}</span>
+                        <span class="edit fa fa-pencil"></span>
+                        <span class="delete fa fa-remove" id="deleteMember"></span>
+                      </li>`);
+    setDelete();
+    setEdit();
+}
+
+var deleteMember = (id) => {
+    $(`li[data-member-id=${id}]`).remove();
+}
+
+var editMember = (name, id) => {
+    $(`li[data-member-id=${id}]`).find(".memberName").text(name);
 }
