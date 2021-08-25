@@ -16,25 +16,6 @@ namespace HelloWorldWeb.Services
             this.context = context;
         }
 
-        public void Add(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Add(TeamMember teamMember)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AddTeamMember(string name)
-        {
-            TeamMember teamMember = new() { Name = name };
-            this.context.Add(teamMember);
-            this.context.SaveChanges();
-
-            return teamMember.Id;
-        }
-
         public int AddTeamMember(TeamMember member)
         {
             context.Add(member);
@@ -44,7 +25,7 @@ namespace HelloWorldWeb.Services
 
         public void DeleteTeamMember(int id)
         {
-            var teamMember = context.TeamMembers.Find(id);
+            TeamMember teamMember = context.TeamMembers.Find(id);
             context.TeamMembers.Remove(teamMember);
             context.SaveChanges();
         }

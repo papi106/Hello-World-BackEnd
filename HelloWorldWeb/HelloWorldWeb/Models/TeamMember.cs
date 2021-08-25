@@ -27,6 +27,14 @@ namespace HelloWorldWeb.Models
             this.timeService = timeService;
         }
 
+        public TeamMember(int id, string name, ITimeService timeService)
+        {
+            Id = id;
+            Name = name;
+
+            this.timeService = timeService;
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }

@@ -18,7 +18,7 @@ namespace HelloWorldWeb.Controllers
         private readonly ITimeService timeService;
         private readonly IBroadcastService broadcastService;
 
-        public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService)
+        public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService, IBroadcastService broadcastService)
         {
             this.logger = logger;
             this.teamService = teamService;
@@ -30,10 +30,12 @@ namespace HelloWorldWeb.Controllers
         public int AddTeamMember(string name)
         {
 
-            TeamMember member = new TeamMember();
-            member.Name = name;
-            return this.teamService.AddTeamMember(member);
+            TeamMember member = new TeamMember() { Name = name };
+
+            teamService.AddTeamMember(member);
             broadcastService.NewTeamMemberAdded(member.Name, member.Id);
+
+            return member.Id;
 
         }
 

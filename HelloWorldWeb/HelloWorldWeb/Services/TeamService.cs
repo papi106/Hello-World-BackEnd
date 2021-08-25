@@ -60,6 +60,7 @@ namespace HelloWorldWeb.Services
         {
 
             TeamMember newMember = new(name, timeService);
+
             teamInfo.TeamMembers.Add(newMember);
 
             broadcastService.NewTeamMemberAdded(newMember.Name, newMember.Id);
@@ -70,7 +71,6 @@ namespace HelloWorldWeb.Services
 
         public void EditTeamMember(int id, string name)
         {
-
             TeamMember member = GetTeamMemberById(id);
             member.Name = name;
 
@@ -83,16 +83,6 @@ namespace HelloWorldWeb.Services
         }
 
         public void SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Add(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Add(TeamMember teamMember)
         {
             throw new NotImplementedException();
         }

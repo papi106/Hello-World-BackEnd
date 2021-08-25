@@ -56,7 +56,7 @@
         var name = $('#memberName').val();
 
         $.ajax({
-            url: "/Home/EditTeamMemberName",
+            url: "/Home/EditTeamMember",
             method: "POST",
             data: {
                 "id": id,
@@ -74,7 +74,7 @@
 });
 
 function setDelete() {
-    $(".delete").click(function () {
+    $(".delete").off("click").click(function () {
         var id = $(this).parent().attr("data-member-id");
         $.ajax({
             method: "DELETE",
