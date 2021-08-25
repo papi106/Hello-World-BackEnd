@@ -14,7 +14,11 @@ namespace HelloWorldWeb.Models
 
         private static int idCount = 0;
         private readonly ITimeService timeService;
-        
+
+        public TeamMember()
+        {
+        }
+
         public TeamMember(string name, ITimeService timeService)
         {
             Id = idCount++;
