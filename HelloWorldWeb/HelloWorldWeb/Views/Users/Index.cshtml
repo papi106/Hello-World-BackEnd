@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<IdentityUser>
+@model IEnumerable<UserWithRole>
 
 @{
     ViewData["Title"] = "Index";
@@ -18,9 +18,11 @@
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.RoleName)
             </th>
-            <th></th>
+            <th>
+                Assign Role
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,11 +33,17 @@
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => item.RoleName)
                 </td>
                 <td>
-                    <a asp-action="AssignAdminRole" asp-route-id="@item.Id">Assign Administrator role</a> |
-                    <a asp-action="AssignUsualRole" asp-route-id="@item.Id">Assign Usual User role</a>
+                    @if (item.RoleName.Equals("Users"))
+                    {
+                        <a asp-action="AssignAdminRole" asp-route-id="@item.UserId">Assign Administrator Role</a>
+                    }
+                    else if (item.RoleName.Equals("Administrators"))
+                    {
+                        <a asp-action="AssignUsualRole" asp-route-id="@item.UserId">Assign User Role</a>
+                    }
                 </td>
             </tr>
         }

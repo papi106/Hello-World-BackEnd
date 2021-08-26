@@ -72,7 +72,7 @@ namespace HelloWorldWeb
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
 
-            AssignRoleProgramaticalyAsync(services.BuildServiceProvider());
+            this.AssignRoleProgramaticaly(services.BuildServiceProvider());
 
         }
 
@@ -114,7 +114,7 @@ namespace HelloWorldWeb
             });            
         }
 
-        private async void AssignRoleProgramaticalyAsync(IServiceProvider services)
+        private async void AssignRoleProgramaticaly(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");

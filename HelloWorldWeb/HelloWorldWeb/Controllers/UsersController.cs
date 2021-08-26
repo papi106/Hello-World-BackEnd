@@ -2,42 +2,63 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using HelloWorldWeb.Data;
 using HelloWorldWeb.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloWorldWeb.Controllers
 {
     public class UsersController : Controller
     {
-        private UserManager<IdentityUser> userManager;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public UsersController(UserManager<IdentityUser> userManager)
+        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await userManager.Users.ToListAsync());
+            List<UserWithRole> userWithRoles = new List<UserWithRole>();
+            var allUsers = await userManager.Users.ToListAsync();
+
+            var administrators = await userManager.GetUsersInRoleAsync("Administrators");
+            var commonUsers = allUsers.Except(administrators).ToList();
+
+            foreach (var admin in administrators)
+            {
+                UserWithRole userWithRole = new UserWithRole() { UserId = admin.Id, UserName = admin.UserName, RoleName = "Administrators" };
+                userWithRoles.Add(userWithRole);
+            }
+            foreach (var user in commonUsers)
+            {
+                UserWithRole userWithRole = new UserWithRole() { UserId = user.Id, UserName = user.UserName, RoleName = "Users" };
+                userWithRoles.Add(userWithRole);
+            }
+
+            return this.View(userWithRoles);
         }
 
         public async Task<IActionResult> AssignAdminRole(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
-            await userManager.AddToRoleAsync(user, "Administrators");
-            return View("Index", await userManager.Users.ToListAsync());
+            var user = await this.userManager.FindByIdAsync(id);
+            await this.userManager.RemoveFromRoleAsync(user, "Users");
+            await this.userManager.AddToRoleAsync(user, "Administrators");
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         public async Task<IActionResult> AssignUsualRole(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
-            await userManager.RemoveFromRoleAsync(user, "Administrators");
-            return View("Index", await userManager.Users.ToListAsync());
+            var user = await this.userManager.FindByIdAsync(id);
+            await this.userManager.RemoveFromRoleAsync(user, "Administrators");
+            await this.userManager.AddToRoleAsync(user, "Users");
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         /*        // GET: Users/Details/5

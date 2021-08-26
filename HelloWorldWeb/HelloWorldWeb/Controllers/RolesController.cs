@@ -10,7 +10,7 @@ namespace HelloWorldWeb.Controllers
 {
     public class RolesController : Controller
     {
-        RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public RolesController(RoleManager<IdentityRole> roleManager)
         {
@@ -20,13 +20,13 @@ namespace HelloWorldWeb.Controllers
         // GET: RolesController
         public ActionResult Index()
         {
-            return View(roleManager.Roles);
+            return this.View(this.roleManager.Roles);
         }
 
         // GET: RolesController/Create
         public ActionResult Create()
         {
-            return View(new IdentityRole());
+            return this.View(new IdentityRole());
         }
 
         // POST: RolesController/Create
@@ -35,12 +35,12 @@ namespace HelloWorldWeb.Controllers
         {
             try
             {
-                await roleManager.CreateAsync(role);
-                return RedirectToAction(nameof(Index));
+                await this.roleManager.CreateAsync(role);
+                return this.RedirectToAction(nameof(this.Index));
             }
             catch
             {
-                return View();
+                return this.View();
             }
         }
     }
