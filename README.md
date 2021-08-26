@@ -5,7 +5,11 @@ This app was made for BackEnd learning.
 # Authors
 Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
+# 
+
 ### EF_Postgres is actually the main branch.
+
+#
 
 ## How to run locally using DockerHub
 
