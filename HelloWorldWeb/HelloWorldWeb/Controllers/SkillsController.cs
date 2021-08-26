@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HelloWorldWeb.Data;
 using HelloWorldWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelloWorldWeb.Controllers
 {
+    [Authorize(Roles="Administrators")]
     public class SkillsController : Controller
     {
         private readonly ApplicationDbContext _context;
