@@ -33,7 +33,7 @@ namespace HelloWorldWeb
             var databaseUri = new Uri(herokuConnectionString);
             string[] databaseUriUsername = databaseUri.UserInfo.Split(":");
 
-            return $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};User Id={databaseUriUsername[0]};Password={databaseUriUsername[1]};Pooling=true;SSL Mode=Require;TrustServerCertificate=True;";
+            return $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath[1..]};User Id={databaseUriUsername[0]};Password={databaseUriUsername[1]};Pooling=true;SSL Mode=Require;TrustServerCertificate=True;";
         }
 
         public IConfiguration Configuration { get; }
@@ -72,7 +72,7 @@ namespace HelloWorldWeb
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
 
-            this.AssignRoleProgramaticaly(services.BuildServiceProvider());
+            AssignRoleProgramaticaly(services.BuildServiceProvider());
 
         }
 
@@ -114,7 +114,7 @@ namespace HelloWorldWeb
             });            
         }
 
-        private async void AssignRoleProgramaticaly(IServiceProvider services)
+        private static async void AssignRoleProgramaticaly(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");
