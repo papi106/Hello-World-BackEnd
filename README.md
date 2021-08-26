@@ -1,9 +1,11 @@
 # Hello World
 This is a sample text for test.
+This app was made for BackEnd learning.
 
-### New branch EF change
+# Authors
+Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
-### EF_Postgres is actually the main branch !
+### EF_Postgres is actually the main branch.
 
 ## How to run locally using DockerHub
 
@@ -55,7 +57,3 @@ heroku container:release -a first-app-helloworld-patrickp web
 The app should work online.
 
 ### My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
-
-## Authors
-
-Created by Patrick Pacurar within the Principal33 Solutions internship.
