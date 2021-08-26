@@ -1,75 +1,62 @@
 #Hello World
-Sample Text
+Sample Text for testing.
 
 #New branch EF change
 
-## How to deploy to heroku
-1. Having heroku account (Create account on https://dashboard.heroku.com/apps)
-2. Log in to heroku
-3. Create an app on heroku 
-4. Choose the app where do you want to deploy 
-5. Make sure that the deplyoment succeeded
+#EF_Postgres is actually the main branch !
 
-Login to heroku
-```
-heroku login
-```
+##CI / CD
 
-Create a new Git repository (you need to be in the project folder where you want to build it)
-```
-git init
-heroku git:remote -a first-app-helloworld-patrickp
-```
+https://github.com/papi106/Hello-World-BackEnd/actions/workflows/dotnet.yml
 
-Deploy the app
+## How to run locally using DockerHub
+1. You must have DockerHub Desktop application and account. (Create account: https://hub.docker.com/)
+2. Open cmd in the project folder.
+3. Build the container image
 ```
-git add .
-git commit -am "describe here what have you done"
-git push heroku master
+docker build -t  hello-world-backend .
 ```
+4. Start the app. This will create a container with random name.
+```
+docker run -dp :80 hello-world-backend
+```
+5. Verify if the app is working.
+Open DockerHub, go at Containers/App tab and click on "Open in browser" button on the container that is runnig.
+6. Rename the container.
+Press the "Stop" button.
+Go to the cmd.
+```
+docker rename <initialname> hello-world-backend-container
+```
+7. The app should work locally.
 
-##How to build and deploy in docker
-1. Having docker account (Create account on https://hub.docker.com/)
-2. Installing docker hub on your desktop
-3. Log in to docker 
-4. Open cmd in the project you want to create a dockerfile (for e.g. C:\Projects\SSH_Hello_World\Hello-World-BackEnd\HelloWorldWeb\HelloWorldWeb)
-5. Build docker file
-6. Make sure the application works locally (go to docker application and open in browser the container that you have built)
-7. Deploy docker using heroku
-8. Open the app online from heroku apps, after releasing the container
+##How to deploy and run in heroku with docker
+You need to have the application built on DockerHub (see above)
 
-Docker login
-```
-docker login
-```
-
-Docker build
-```
-docker build -t nameoftheproject .
-```
-
-Docker image list
-```
-docker image ls
-```
-
-Docker run
-```
-docker run -d -p 8081:80 --name nameoftheproject_container nameoftheproject
-```
-
-Login to heroku
+1. Have a heroku account. (Create: https://www.heroku.com/)
+2. Install heroku CLI (https://devcenter.heroku.com/articles/heroku-cli)
+3. Open cmd in the project folder.
+4. Login to heroku.
 ```
 heroku login
 heroku container:login
 ```
-
-Push container
+4. Create an app in Heroku (skip if you have it already done on the site)
+```
+heroku create first-app-helloworld-patrickp (or another name if there already exists) --region eu 
+```
+5. Build the container image and push it.
 ```
 heroku container:push -a first-app-helloworld-patrickp web
 ```
-
-Release the container
+6. Release the container
 ```
 heroku container:release -a first-app-helloworld-patrickp web
 ```
+7. Go to the heroku website and open the app.
+The app should work online.
+
+#My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
+
+###Authors
+Created by Patrick Pacurar within the Principal33 Solutions internship.
