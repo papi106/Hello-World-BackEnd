@@ -1,11 +1,10 @@
-#Hello World
-#This is a sample text for test.
+# Hello World
+This is a sample text for test.
 
-#New branch EF change
+# New branch EF change
 
-#EF_Postgres is actually the main branch !
+# EF_Postgres is actually the main branch !
 
-##Build & run locally / online
 ### How to run locally using DockerHub
 
 1. You must have DockerHub Desktop application and account. (Create account: https://hub.docker.com/)
@@ -28,7 +27,7 @@ docker rename <initialname> hello-world-backend-container
 ```
 7. The app should work locally.
 
-###How to deploy and run in heroku with docker
+### How to deploy and run in heroku with docker
 
 You need to have the application built on DockerHub (see above)
 
@@ -55,8 +54,8 @@ heroku container:release -a first-app-helloworld-patrickp web
 7. Go to the heroku website and open the app.
 The app should work online.
 
-##My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
+## My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
 
-##Authors
+## Authors
 
 Created by Patrick Pacurar within the Principal33 Solutions internship.
