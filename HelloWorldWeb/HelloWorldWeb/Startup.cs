@@ -17,7 +17,7 @@ using System.Reflection;
 using System.IO;
 using System;
 using HelloWorldWebApp.Services;
-
+using System.Threading.Tasks;
 
 namespace HelloWorldWeb
 {
@@ -54,14 +54,10 @@ namespace HelloWorldWeb
 
             //Services for interfaces
             services.AddControllersWithViews();
-
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
-
             services.AddSingleton<IBroadcastService, BroadcastService>();
-
             services.AddScoped<ITeamService, DbTeamService>();
             services.AddSingleton<ITimeService, TimeService>();
-			
 			services.AddSignalR();
 
 
@@ -76,7 +72,8 @@ namespace HelloWorldWeb
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
 
-            
+            AssignRoleProgramaticalyAsync(services.BuildServiceProvider());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,7 +111,14 @@ namespace HelloWorldWeb
                 endpoints.MapRazorPages();
 
                 endpoints.MapHub<MessageHub>("/messagehub");
-            });
+            });            
+        }
+
+        private async void AssignRoleProgramaticalyAsync(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");
+            await userManager.AddToRoleAsync(user, "Administrators");
         }
     }
 }
