@@ -6,7 +6,7 @@ This app was made for BackEnd learning.
 Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
 # CI / CD
-![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml)
+![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
 
 # 
 
