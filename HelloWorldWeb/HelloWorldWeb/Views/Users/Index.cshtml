@@ -36,11 +36,11 @@
                     @Html.DisplayFor(modelItem => item.RoleName)
                 </td>
                 <td>
-                    @if (item.RoleName.Equals("Users"))
+                    @if (item.RoleName.Equals("User"))
                     {
                         <a asp-action="AssignAdminRole" asp-route-id="@item.UserId">Assign Administrator Role</a>
                     }
-                    else if (item.RoleName.Equals("Administrators"))
+                    else if (item.RoleName.Equals("Administrator"))
                     {
                         <a asp-action="AssignUsualRole" asp-route-id="@item.UserId">Assign User Role</a>
                     }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HelloWorldWeb.Controllers
 {
-    [Authorize(Roles="Administrators")]
+    [Authorize(Roles="Administrator")]
     public class SkillsController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -118,7 +118,7 @@ namespace HelloWorldWeb
         {
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");
-            await userManager.AddToRoleAsync(user, "Administrators");
+            await userManager.AddToRoleAsync(user, "Administrator");
         }
     }
 }
