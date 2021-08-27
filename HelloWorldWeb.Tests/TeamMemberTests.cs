@@ -1,12 +1,8 @@
-﻿using HelloWorldWeb.Models;
-using HelloWorldWeb.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Xunit;
 using Moq;
+using HelloWorldWeb.Services;
+using HelloWorldWeb.Models;
 
 namespace HelloWorldWeb.Tests
 {

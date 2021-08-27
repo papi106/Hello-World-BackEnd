@@ -6,9 +6,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["./HelloWorldWeb.csproj", "HelloWorldWeb/"]
-RUN dotnet restore "./HelloWorldWeb/HelloWorldWeb.csproj"
-COPY . ./HelloWorldWeb/HelloWorldWeb
-WORKDIR "/src/HelloWorldWeb/HelloWorldWeb"
+RUN dotnet restore "HelloWorldWeb/HelloWorldWeb.csproj"
+COPY . ./HelloWorldWeb
+WORKDIR "/src/HelloWorldWeb"
 RUN dotnet build "HelloWorldWeb.csproj" -c Release -o /app/build
 
 FROM build AS publish

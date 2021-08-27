@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelloWorldWeb\HelloWorldWeb\HelloWorldWeb.csproj" />
+    <ProjectReference Include="..\HelloWorldWeb\HelloWorldWeb.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,34 +9,11 @@ namespace HelloWorldWeb.Test
 {
     public class TeamServiceTests
     {
-        private Mock<IClientProxy> hubAllClientsMock;
-        private Mock<IHubContext<MessageHub>> messageHubMock;
-
-        private void InitializeMessageHubMock()
-        {
-            // https://www.codeproject.com/Articles/1266538/Testing-SignalR-Hubs-in-ASP-NET-Core-2-1
-            hubAllClientsMock = new Mock<IClientProxy>();
-            Mock<IHubClients> hubClients = new Mock<IHubClients>();
-            hubClients.Setup(_ => _.All).Returns(hubAllClientsMock.Object);
-            messageHubMock = new Mock<IHubContext<MessageHub>>();
-
-            messageHubMock.SetupGet(_ => _.Clients).Returns(hubClients.Object);
-        }
-
-        private Mock<IHubContext<MessageHub>> GetMockedMessageHub()
-        {
-            if (messageHubMock == null)
-            {
-                InitializeMessageHubMock();
-            }
-
-            return messageHubMock;
-        }
         [Fact]
         public void AddTeamMemberToTheTeam()
         {
             //Assume
-            Mock<IBroadcastService> broadcastServiceMock = new Mock<IBroadcastService>();
+            Mock<IBroadcastService> broadcastServiceMock = new();
             var broadcastService = broadcastServiceMock.Object;
             var teamService = new TeamService(broadcastService);
 
@@ -54,7 +31,7 @@ namespace HelloWorldWeb.Test
         {
             // Assume
             //var teamService = new TeamService(GetMockedMessageHub().Object);
-            Mock<IBroadcastService> broadcastServiceMock = new Mock<IBroadcastService>();
+            Mock<IBroadcastService> broadcastServiceMock = new();
             var broadcastService = broadcastServiceMock.Object;
             var teamService = new TeamService(broadcastService);
 
@@ -72,7 +49,7 @@ namespace HelloWorldWeb.Test
         public void EditMemberName()
         {
             // Assume
-            Mock<IBroadcastService> broadcastServiceMock = new Mock<IBroadcastService>();
+            Mock<IBroadcastService> broadcastServiceMock = new();
             var broadcastService = broadcastServiceMock.Object;
             var teamService = new TeamService(broadcastService);
             var id = teamService.GetTeamInfo().TeamMembers[0].Id;
@@ -90,7 +67,7 @@ namespace HelloWorldWeb.Test
         {
             // Assume
             //var teamService = new TeamService(GetMockedMessageHub().Object);
-            Mock<IBroadcastService> broadcastServiceMock = new Mock<IBroadcastService>();
+            Mock<IBroadcastService> broadcastServiceMock = new();
             var broadcastService = broadcastServiceMock.Object;
             var teamService = new TeamService(broadcastService);
 
