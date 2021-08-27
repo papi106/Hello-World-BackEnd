@@ -9,9 +9,9 @@ Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 This is the workflow of the app.
 
 ![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
-# 
+##
 ### EF_Postgres is actually the main branch.
-#
+##
 ## How to run locally using DockerHub
 
 1. You must have DockerHub Desktop application and account. (Create account: https://hub.docker.com/)
@@ -61,5 +61,5 @@ heroku container:release -a first-app-helloworld-patrickp web
 7. Go to the heroku website and open the app.
 The app should work online.
 
-#
+##
 ### My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
