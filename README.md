@@ -10,10 +10,8 @@ This is the workflow of the app.
 
 ![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
 # 
-
 ### EF_Postgres is actually the main branch.
 #
-
 ## How to run locally using DockerHub
 
 1. You must have DockerHub Desktop application and account. (Create account: https://hub.docker.com/)
