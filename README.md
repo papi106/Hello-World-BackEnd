@@ -5,6 +5,9 @@ This app was made for BackEnd learning.
 # Authors
 Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
+# CI / CD
+![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml)
+
 # 
 
 ### EF_Postgres is actually the main branch.
