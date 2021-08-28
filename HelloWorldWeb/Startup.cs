@@ -116,6 +116,30 @@ namespace HelloWorldWeb
 
         private static async void AssignRoleProgramaticaly(IServiceProvider services)
         {
+
+            //Adding roles automatically
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            bool x = await roleManager.RoleExistsAsync("User");
+            if (!x)
+            {
+                var roleUser = new IdentityRole
+                {
+                    Name = "User"
+                };
+                await roleManager.CreateAsync(roleUser);
+            }
+            bool y = await roleManager.RoleExistsAsync("Administrator");
+            if (!y)
+            {
+                var roleAdmin = new IdentityRole
+                {
+                    Name = "Administrator"
+                };
+                await roleManager.CreateAsync(roleAdmin);
+            }
+
+            //Adding Admin role automatically to the name 
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");
             await userManager.AddToRoleAsync(user, "Administrator");
