@@ -6,7 +6,7 @@ Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 # Live app
 Here you can see what I've did online.
 ## [My heroku app](https://first-app-helloworld-patrickp.herokuapp.com/)
-#
+
 ## CI / CD
 This is the workflow of the app.
 
