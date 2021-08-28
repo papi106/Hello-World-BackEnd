@@ -13,7 +13,9 @@ namespace HelloWorldWeb.Models
     {
 
         private static int idCount = 0;
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly ITimeService timeService;
+#pragma warning restore IDE0052 // Remove unread private members
 
         public TeamMember()
         {
