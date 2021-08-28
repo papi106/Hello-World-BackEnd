@@ -2,7 +2,6 @@
 Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
 [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
-
 #
 ## EF_Postgres is actually the main branch.
 
@@ -10,13 +9,11 @@ Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 Here you can see what I've did online.
 
 [My heroku app](https://first-app-helloworld-patrickp.herokuapp.com/)
-
 #
 ## CI / CD
 This is the workflow of the app.
 
 [![.NET](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
-
 # How to run locally using DockerHub
 
 1. You must have DockerHub Desktop application and account. (Create account: https://hub.docker.com/)
@@ -38,8 +35,6 @@ Go to the cmd.
 docker rename <initialname> hello-world-backend-container
 ```
 7. The app should work locally.
-
-#
 # How to deploy and run in heroku with docker
 
 You need to have the application built on DockerHub (see above)
