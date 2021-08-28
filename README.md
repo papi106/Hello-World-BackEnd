@@ -3,7 +3,7 @@ Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
 ### [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
 
-### [My heroku app](https://first-app-helloworld-patrickp.herokuapp.com/)
+## [My heroku app](https://first-app-helloworld-patrickp.herokuapp.com/)
 
 # CI / CD
 This is the workflow of the app.
