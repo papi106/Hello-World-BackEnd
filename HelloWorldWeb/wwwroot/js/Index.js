@@ -14,6 +14,7 @@
         return console.error(err.toString());
     });
 
+    //Button "create" enabled/disabled
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
             $('#createButton').prop('disabled', false);
@@ -22,11 +23,13 @@
         }
     });
 
+    //Button "clear" enabled/disabled
     $("#clearButton").click(function () {
         $("#nameField").val("");
         $('#createButton').prop('disabled', true);
     });
 
+    //Button "create" adds member
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
         $.ajax({
@@ -50,6 +53,7 @@
         });
     })
 
+    //Button for edit member
     $("#editTeamMember").on("click", "#submit", function () {
 
         var id = $('#editTeamMember').attr("data-member-id");
@@ -67,12 +71,13 @@
         })
     })
 
-
+    //Button for cancel editing
     $("#editTeamMember").on("click", "#cancel", function () {
         console.log('cancel changes');
     })
 });
 
+//Function for delete member
 function setDelete() {
     $(".delete").off("click").click(function () {
         var id = $(this).parent().attr("data-member-id");
@@ -90,6 +95,7 @@ function setDelete() {
     );
 }
 
+//Function for editing memeber
 function setEdit() {
     $("#teamList").on("click", ".edit", function () {
         var targetMemberTag = $(this).closest('li');
@@ -101,6 +107,7 @@ function setEdit() {
     })
 }
 
+//Here we create the list of members by using SignalR
 var createNewLine = (name, id) => {
     $("#teamList").append(`<li class="member" data-member-id="${id}">
                         <span class="memberName">${name}</span>
@@ -111,10 +118,12 @@ var createNewLine = (name, id) => {
     setEdit();
 }
 
+//Here we delete members by using SignalR
 var deleteMember = (id) => {
     $(`li[data-member-id=${id}]`).remove();
 }
 
+//Here we edit members by using SignalR
 var editMember = (name, id) => {
     $(`li[data-member-id=${id}]`).find(".memberName").text(name);
 }
