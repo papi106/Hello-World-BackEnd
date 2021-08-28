@@ -6,7 +6,6 @@ Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 #
 ## EF_Postgres is actually the main branch.
 
-#
 ## Live app
 Here you can see what I've did online.
 
