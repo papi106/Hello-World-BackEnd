@@ -15,9 +15,13 @@ namespace HelloWorldWeb.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly ILogger<HomeController> logger;
+#pragma warning restore IDE0052 // Remove unread private members
         private readonly ITeamService teamService;
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly ITimeService timeService;
+#pragma warning restore IDE0052 // Remove unread private members
         private readonly IBroadcastService broadcastService;
 
         public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService, IBroadcastService broadcastService)
@@ -32,7 +36,7 @@ namespace HelloWorldWeb.Controllers
         public int AddTeamMember(string name)
         {
 
-            TeamMember member = new TeamMember() { Name = name };
+            TeamMember member = new() { Name = name };
 
             teamService.AddTeamMember(member);
             broadcastService.NewTeamMemberAdded(member.Name, member.Id);
