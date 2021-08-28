@@ -1,14 +1,13 @@
-# Hello World
-This is a sample text for test.
-This app was made for BackEnd learning.
-
 # Authors
 Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
-
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
+#
+### [My heroku app](https://first-app-helloworld-patrickp.herokuapp.com/)
 # CI / CD
 This is the workflow of the app.
 
-![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
+[![.NET](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
 ##
 ### EF_Postgres is actually the main branch.
 ##
@@ -60,6 +59,3 @@ heroku container:release -a first-app-helloworld-patrickp web
 ```
 7. Go to the heroku website and open the app.
 The app should work online.
-
-##
-### My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
