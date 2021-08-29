@@ -144,5 +144,17 @@ namespace HelloWorldWeb
             var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");
             await userManager.AddToRoleAsync(user, "Administrator");
         }
+
+        //Extracting proper connection
+        private string ObtainConnectionString()
+        {
+            string databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            if (databaseUrl == null)
+            {
+                return Configuration.GetConnectionString("DefaultConnection");
+            }
+            return ConvertHerokuStringToAspNetString(databaseUrl);
+        }
     }
 }
