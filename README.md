@@ -1,18 +1,21 @@
-# Hello World
-This is a sample text for test.
-This app was made for BackEnd learning.
-
 # Authors
 Created by Patrick Păcurar within the Principal33 Solutions S.R.L. Internship.
 
-# CI / CD
+[![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
+#
+### EF_Postgres is actually the main branch.
+#
+## Live app
+Here you can see what I've coded online.
+
+[My heroku app](https://first-app-helloworld-patrickp.herokuapp.com/)
+#
+## CI / CD
 This is the workflow of the app.
 
-![example workflow](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)
-##
-### EF_Postgres is actually the main branch.
-##
-## How to run locally using DockerHub
+[![.NET](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml/badge.svg)](https://github.com/papi106/Hello-World-BackEnd/actions/workflows/EF_Postgres_dotnet.yml)
+#
+# How to run locally using DockerHub
 
 1. You must have DockerHub Desktop application and account. (Create account: https://hub.docker.com/)
 2. Open cmd in the project folder.
@@ -33,8 +36,7 @@ Go to the cmd.
 docker rename <initialname> hello-world-backend-container
 ```
 7. The app should work locally.
-
-## How to deploy and run in heroku with docker
+# How to deploy and run in heroku with docker
 
 You need to have the application built on DockerHub (see above)
 
@@ -60,6 +62,4 @@ heroku container:release -a first-app-helloworld-patrickp web
 ```
 7. Go to the heroku website and open the app.
 The app should work online.
-
-##
-### My heroku app link: https://first-app-helloworld-patrickp.herokuapp.com/
+#
