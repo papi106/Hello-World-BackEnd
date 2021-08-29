@@ -41,25 +41,13 @@ namespace HelloWorldWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-
-                options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
-
             //Services for interfaces
             services.AddControllersWithViews();
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
             services.AddSingleton<IBroadcastService, BroadcastService>();
             services.AddScoped<ITeamService, DbTeamService>();
             services.AddSingleton<ITimeService, TimeService>();
-			services.AddSignalR();
-
+            services.AddSignalR();
 
             //add swagger for API documentation
             services.AddSwaggerGen(c =>
@@ -72,8 +60,23 @@ namespace HelloWorldWeb
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
 
-            AssignRoleProgramaticaly(services.BuildServiceProvider());
+            //Extracting proper connection
+            string databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
+            databaseUrl = databaseUrl != null ? ConvertHerokuStringToAspNetString(databaseUrl) : 
+                Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(databaseUrl));
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            //Required confirmed account for users
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //Assigning roles
+            AssignRoleProgramaticaly(services.BuildServiceProvider());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -143,18 +146,6 @@ namespace HelloWorldWeb
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var user = await userManager.FindByNameAsync("patrickpacurar@yahoo.com");
             await userManager.AddToRoleAsync(user, "Administrator");
-        }
-
-        //Extracting proper connection
-        private string ObtainConnectionString()
-        {
-            string databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-            if (databaseUrl == null)
-            {
-                return Configuration.GetConnectionString("DefaultConnection");
-            }
-            return ConvertHerokuStringToAspNetString(databaseUrl);
         }
     }
 }
